@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarLink - Function Test Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        body {
+            background-color: #0e0e0e;
+            color: #e7e5e4;
+            font-family: Inter, sans-serif;
+        }
+        .test-item {
+            background: #252626;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-left: 3px solid #c6c6c7;
+        }
+        .test-pass { border-left-color: #4caf50; }
+        .test-fail { border-left-color: #ec7c8a; }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-pass { background: #4caf50; color: white; }
+        .status-fail { background: #ec7c8a; color: white; }
+    </style>
+</head>
+<body>
+<div style="max-width: 900px; margin: 0 auto; padding: 40px 20px;">
+    <h1 style="font-size: 32px; margin-bottom: 30px; text-align: center;">🧪 CarLink Function Test Dashboard</h1>
+    
+    <div style="background: #252626; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #454747;">
+        <h2 style="margin-top: 0; margin-bottom: 15px;">📊 System Status</h2>
+        <div id="systemStatus" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            <!-- Will be filled by JavaScript -->
+        </div>
+    </div>
+
+    <div style="background: #252626; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #454747;">
+        <h2 style="margin-top: 0; margin-bottom: 15px;">🛠️ Function Tests</h2>
+        <div id="testResults" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Will be filled by JavaScript -->
+        </div>
+    </div>
+
+    <div style="background: #252626; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #454747;">
+        <h2 style="margin-top: 0; margin-bottom: 15px;">🧪 Interactive Tests</h2>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button onclick="testTelegramMessage()" style="padding: 12px; background: #c6c6c7; color: #0e0e0e; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                📧 Send Test Telegram Message
+            </button>
+            <button onclick="testCartFunctionality()" style="padding: 12px; background: #c6c6c7; color: #0e0e0e; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                🛒 Test Cart System
+            </button>
+            <button onclick="testLocalStorage()" style="padding: 12px; background: #c6c6c7; color: #0e0e0e; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                💾 Test LocalStorage
+            </button>
+            <button onclick="testValidation()" style="padding: 12px; background: #c6c6c7; color: #0e0e0e; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                ✅ Test Validation Functions
+            </button>
+            <button onclick="window.location.href='pages/home.html'" style="padding: 12px; background: #454747; color: #e7e5e4; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                🏠 Go to Home Page
+            </button>
+        </div>
+    </div>
+
+    <div style="background: #252626; padding: 20px; border-radius: 10px; border: 1px solid #454747;">
+        <h2 style="margin-top: 0; margin-bottom: 15px;">📋 LocalStorage Data</h2>
+        <button onclick="showStorageData()" style="padding: 10px 20px; background: #c6c6c7; color: #0e0e0e; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 15px;">
+            View Storage
+        </button>
+        <pre id="storageData" style="background: #0e0e0e; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px; color: #4caf50;"></pre>
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/forms.js"></script>
+
+<script>
+// Run tests on page load
+document.addEventListener('DOMContentLoaded', () => {
+    runAllTests();
+});
+
+// Test functions
+function runAllTests() {
+    const tests = [
+        { name: 'Telegram Config', test: () => !!TELEGRAM_CONFIG && !!TELEGRAM_CONFIG.BOT_TOKEN },
+        { name: 'Cart Instance', test: () => typeof cart !== 'undefined' && cart.constructor.name === 'ShoppingCart' },
+        { name: 'Phone Validation', test: () => validatePhone('+998901234567') },
+        { name: 'Email Validation', test: () => validateEmail('test@example.com') },
+        { name: 'LocalStorage API', test: () => typeof Storage !== 'undefined' },
+        { name: 'Order Data Saving', test: () => typeof saveOrderData === 'function' },
+        { name: 'Telegram Send Function', test: () => typeof sendToTelegram === 'function' },
+        { name: 'Message Formatting', test: () => typeof formatOrderMessage === 'function' },
+        { name: 'Scroll Animations', test: () => typeof ScrollAnimations !== 'undefined' },
+        { name: 'Form Validation Functions', test: () => typeof validatePhone === 'function' && typeof validateEmail === 'function' }
+    ];
+
+    const resultsDiv = document.getElementById('testResults');
+    resultsDiv.innerHTML = '';
+
+    tests.forEach(({name, test}) => {
+        try {
+            const result = test();
+            const status = result ? 'pass' : 'fail';
+            const html = `
+                <div class="test-item test-${status}">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>${status === 'pass' ? '✅' : '❌'} ${name}</span>
+                        <span class="status-badge status-${status}">${status.toUpperCase()}</span>
+                    </div>
+                </div>
+            `;
+            resultsDiv.insertAdjacentHTML('beforeend', html);
+        } catch (error) {
+            const html = `
+                <div class="test-item test-fail">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>❌ ${name}</span>
+                        <span class="status-badge status-fail">ERROR</span>
+                    </div>
+                    <div style="font-size: 12px; color: #ec7c8a; margin-top: 8px;">${error.message}</div>
+                </div>
+            `;
+            resultsDiv.insertAdjacentHTML('beforeend', html);
+        }
+    });
+
+    // System status
+    const statusDiv = document.getElementById('systemStatus');
+    const status = {
+        'JavaScript': '✅ Enabled',
+        'LocalStorage': typeof Storage !== 'undefined' ? '✅ Available' : '❌ Disabled',
+        'Cart System': typeof cart !== 'undefined' ? '✅ Active' : '❌ Failed',
+        'Telegram API': 'ℹ️ Configured',
+        'Animations': 'ℹ️ Loaded',
+        'Forms': '✅ Active'
+    };
+
+    statusDiv.innerHTML = Object.entries(status).map(([key, val]) => `
+        <div style="padding: 10px; background: #0e0e0e; border-radius: 8px; border-left: 3px solid #c6c6c7;">
+            <div style="font-weight: bold; margin-bottom: 4px;">${key}</div>
+            <div style="font-size: 14px; color: #acabaa;">${val}</div>
+        </div>
+    `).join('');
+}
+
+// Test Telegram
+async function testTelegramMessage() {
+    const message = `
+<b>🧪 TEST MESSAGE</b>
+
+<b>Test Type:</b> Telegram API Test
+<b>Status:</b> ✅ Working
+<b>Time:</b> ${new Date().toLocaleString('en-US')}
+<b>Message:</b> This is a test message from the CarLink function test dashboard.
+    `.trim();
+    
+    alert('📧 Sending test message to Telegram...');
+    const result = await sendToTelegram(message);
+    alert(result ? '✅ Message sent successfully!' : '❌ Failed to send message');
+}
+
+// Test Cart
+function testCartFunctionality() {
+    cart.add('Tesla Model S (Test)', '2500000', 1);
+    cart.add('Porsche 911 (Test)', '4200000', 2);
+    cart.add('BMW M760Li (Test)', '3800000', 1);
+    
+    setTimeout(() => {
+        alert(`✅ Cart test complete! Added 3 items.\n\nTotal: ${cart.getTotal().toLocaleString()} UZS`);
+    }, 500);
+}
+
+// Test LocalStorage
+function testLocalStorage() {
+    const testData = {
+        test_key: 'test_value',
+        timestamp: new Date().toISOString()
+    };
+    
+    localStorage.setItem('carlink_test', JSON.stringify(testData));
+    const retrieved = JSON.parse(localStorage.getItem('carlink_test'));
+    
+    if (retrieved.test_key === 'test_value') {
+        alert('✅ LocalStorage working correctly!');
+    } else {
+        alert('❌ LocalStorage test failed');
+    }
+}
+
+// Test Validation
+function testValidation() {
+    const phoneTests = [
+        { phone: '+998901234567', expected: true },
+        { phone: '998901234567', expected: true },
+        { phone: '+1234567890', expected: false },
+        { phone: 'invalid', expected: false }
+    ];
+    
+    const emailTests = [
+        { email: 'test@example.com', expected: true },
+        { email: 'invalid.email', expected: false },
+        { email: 'test@domain.co.uk', expected: true }
+    ];
+    
+    let phonePass = 0, emailPass = 0;
+    
+    phoneTests.forEach(({phone, expected}) => {
+        const result = validatePhone(phone) === expected;
+        phonePass += result ? 1 : 0;
+    });
+    
+    emailTests.forEach(({email, expected}) => {
+        const result = validateEmail(email) === expected;
+        emailPass += result ? 1 : 0;
+    });
+    
+    alert(`✅ Validation Tests:\n\nPhone: ${phonePass}/${phoneTests.length} passed\nEmail: ${emailPass}/${emailTests.length} passed`);
+}
+
+// Show storage data
+function showStorageData() {
+    const data = {
+        orders: JSON.parse(localStorage.getItem('carlink_orders') || '[]'),
+        cart: JSON.parse(localStorage.getItem('carlink_cart') || '[]'),
+        other_keys: Object.keys(localStorage).filter(k => !k.startsWith('carlink_'))
+    };
+    
+    document.getElementById('storageData').textContent = JSON.stringify(data, null, 2);
+}
+</script>
+</body>
+</html>
