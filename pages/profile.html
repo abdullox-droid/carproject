@@ -296,7 +296,7 @@
 
     function loadOwned() {
         const list = document.getElementById('ownedList');
-        const owned = JSON.parse(localStorage.getItem('carlink_owned') || []);
+        const owned = JSON.parse(localStorage.getItem('carlink_owned') || '[]');
         list.innerHTML = owned.map(car => `
             <div class="bg-surface-container-low rounded-3xl overflow-hidden border border-white/5">
                 <img src="${car.image}" class="w-full h-48 object-cover"/>

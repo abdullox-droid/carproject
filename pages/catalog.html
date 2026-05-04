@@ -4,117 +4,74 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Каталог — CarLink</title>
+    <meta name="description" content="Каталог автомобилей CarLink. Фильтры по цене, типу, городу. Забронируйте прямо сейчас.">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800;900&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <script id="tailwind-config">
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "primary-fixed": "#e2e2e2",
-                        "on-surface-variant": "#acabaa",
-                        "primary-container": "#454747",
-                        "tertiary-fixed": "#f4f3f3",
-                        "secondary-fixed": "#e3e2e2",
-                        "error-dim": "#b95463",
-                        "tertiary-fixed-dim": "#e6e5e5",
-                        "inverse-primary": "#5e5f60",
-                        "on-tertiary-container": "#565757",
-                        "on-surface": "#e7e5e4",
-                        "error": "#ec7c8a",
-                        "on-secondary-fixed": "#3e3f40",
-                        "primary": "#c6c6c7",
-                        "on-error-container": "#ff97a3",
-                        "surface-dim": "#0e0e0e",
-                        "surface-container-low": "#131313",
-                        "on-primary": "#3f4041",
-                        "inverse-on-surface": "#565554",
-                        "on-primary-container": "#d0d0d0",
-                        "tertiary": "#faf9f9",
-                        "secondary-fixed-dim": "#d5d4d4",
-                        "secondary-container": "#3a3c3c",
-                        "secondary": "#9e9e9e",
-                        "on-secondary-fixed-variant": "#5b5c5c",
-                        "primary-dim": "#b8b9b9",
-                        "on-primary-fixed": "#3e4040",
-                        "on-tertiary-fixed-variant": "#656666",
-                        "surface-variant": "#252626",
-                        "surface-bright": "#2c2c2c",
-                        "surface-container": "#191a1a",
-                        "on-tertiary": "#5e5f5f",
-                        "on-error": "#490013",
-                        "tertiary-container": "#ebebeb",
-                        "inverse-surface": "#fcf8f8",
-                        "surface-container-highest": "#252626",
-                        "surface-container-high": "#1f2020",
-                        "on-tertiary-fixed": "#484a4a",
-                        "surface-tint": "#c6c6c7",
-                        "surface": "#0e0e0e",
-                        "primary-fixed-dim": "#d4d4d4",
-                        "error-container": "#7f2737",
-                        "background": "#0e0e0e",
-                        "on-primary-fixed-variant": "#5a5c5c",
-                        "outline": "#767575",
-                        "surface-container-lowest": "#000000",
-                        "secondary-dim": "#9e9e9e",
-                        "on-background": "#e7e5e4",
-                        "tertiary-dim": "#ebebeb",
-                        "on-secondary-container": "#bfbfbf",
-                        "on-secondary": "#1f2021",
-                        "outline-variant": "#484848"
+                    colors: {
+                        "primary": "#c6c6c7", "primary-fixed": "#e2e2e2", "primary-dim": "#b8b9b9",
+                        "on-primary": "#3f4041", "on-surface": "#e7e5e4", "on-surface-variant": "#acabaa",
+                        "surface": "#0e0e0e", "surface-container": "#191a1a", "surface-container-low": "#131313",
+                        "surface-container-high": "#1f2020", "surface-container-highest": "#252626",
+                        "surface-container-lowest": "#000000", "surface-variant": "#252626",
+                        "background": "#0e0e0e", "outline": "#767575", "outline-variant": "#484848",
+                        "tertiary": "#faf9f9", "tertiary-container": "#ebebeb", "on-tertiary-container": "#565757",
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Manrope"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
-                    }
+                    fontFamily: { "headline": ["Manrope"], "body": ["Inter"] },
                 },
             },
         }
     </script>
     <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            background-color: #0e0e0e;
-            color: #e7e5e4;
-        }
-        ::-webkit-scrollbar {
-            display: none;
-        }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { background-color: #0e0e0e; color: #e7e5e4; }
+        ::-webkit-scrollbar { display: none; }
+        .mobile-menu { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+        .mobile-menu.open { transform: translateX(0); }
     </style>
 </head>
 <body class="font-body selection:bg-primary selection:text-on-primary">
-<!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 dark:bg-zinc-950/70 backdrop-blur-xl">
-    <div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
-        <a href="../index.html" class="text-2xl font-black tracking-tighter dark:text-zinc-100 font-headline">CarLink</a>
-        <div class="hidden md:flex items-center gap-10">
-            <a class="font-manrope tracking-tight text-sm uppercase dark:text-zinc-500 hover:dark:text-zinc-100 transition-all duration-300" href="home.html">Главная</a>
-            <a class="font-manrope tracking-tight text-sm uppercase dark:text-zinc-500 hover:dark:text-zinc-100 transition-all duration-300" href="../login.html">Вход</a>
+
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-zinc-950/70 backdrop-blur-xl border-b border-white/5">
+    <div class="flex justify-between items-center px-6 md:px-8 py-5 max-w-screen-2xl mx-auto">
+        <a href="../index.html" class="text-2xl font-black tracking-tighter text-zinc-100 font-headline">CarLink</a>
+        <div class="hidden md:flex items-center gap-8">
+            <a class="font-headline tracking-tight text-sm uppercase text-zinc-500 hover:text-zinc-100 transition-all" href="home.html">Главная</a>
+            <a class="font-headline tracking-tight text-sm uppercase text-zinc-500 hover:text-zinc-100 transition-all" href="map.html">Карта</a>
+            <a class="font-headline tracking-tight text-sm uppercase text-zinc-500 hover:text-zinc-100 transition-all" href="../login.html">Вход</a>
         </div>
         <div class="flex items-center gap-4">
-            <a href="profile.html" class="active:scale-95 transition-transform flex items-center justify-center p-2 rounded-full hover:bg-surface-container-high">
-                <span class="material-symbols-outlined dark:text-zinc-300" data-icon="account_circle">account_circle</span>
+            <a href="profile.html" class="hidden md:flex active:scale-95 transition-transform items-center justify-center p-2 rounded-full hover:bg-surface-container-high">
+                <span class="material-symbols-outlined text-zinc-300">account_circle</span>
             </a>
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl hover:bg-white/5">
+                <span class="material-symbols-outlined text-zinc-300">menu</span>
+            </button>
         </div>
     </div>
 </nav>
 
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] bg-zinc-950/98 backdrop-blur-xl flex flex-col items-center justify-center gap-8">
+    <button onclick="toggleMobileMenu()" class="absolute top-5 right-6 p-2">
+        <span class="material-symbols-outlined text-zinc-300 text-3xl">close</span>
+    </button>
+    <a href="home.html" class="text-2xl font-headline font-bold text-zinc-300">Главная</a>
+    <a href="map.html" class="text-2xl font-headline font-bold text-zinc-300">Карта</a>
+    <a href="../login.html" class="text-2xl font-headline font-bold text-zinc-300">Вход</a>
+    <a href="profile.html" class="text-2xl font-headline font-bold text-zinc-300">Профиль</a>
+</div>
+
 <!-- Main Content -->
-<div class="pt-24 px-8 flex flex-col lg:flex-row gap-8 max-w-screen-2xl mx-auto">
+<div class="pt-24 px-4 md:px-8 flex flex-col lg:flex-row gap-8 max-w-screen-2xl mx-auto">
     <!-- Filters Sidebar -->
     <aside class="w-full lg:w-72 shrink-0 space-y-6">
-        <!-- Advanced Search Box -->
         <div class="bg-surface-container-low p-6 rounded-2xl border border-white/5">
             <h3 class="text-sm font-bold uppercase tracking-wider text-primary mb-4">Поиск</h3>
             <div class="space-y-4">
@@ -142,18 +99,16 @@
 
         <div class="bg-surface-container-low p-6 rounded-2xl border border-white/5 h-fit sticky top-24">
             <h3 class="text-lg font-bold font-headline mb-8">Фильтры</h3>
-            
-            <!-- Price Range -->
+
             <div class="mb-8">
                 <h4 class="text-sm font-bold mb-4">Цена в день</h4>
-                <input id="priceFilter" class="w-full accent-primary" max="5000000" min="500000" step="100000" type="range" value="5000000"/>
+                <input id="priceFilter" class="w-full accent-primary" max="10000000" min="500000" step="100000" type="range" value="10000000"/>
                 <div class="flex justify-between mt-2 text-xs text-on-surface-variant">
                     <span>500,000 UZS</span>
-                    <span id="priceValue">До 5,000,000 UZS</span>
+                    <span id="priceValue">До 10,000,000 UZS</span>
                 </div>
             </div>
 
-            <!-- Vehicle Type -->
             <div class="mb-8">
                 <h4 class="text-sm font-bold mb-4">Тип кузова</h4>
                 <div class="space-y-3" id="typeFilters">
@@ -180,7 +135,6 @@
                 </div>
             </div>
 
-            <!-- Transmission -->
             <div class="mb-8">
                 <h4 class="text-sm font-bold mb-4">Трансмиссия</h4>
                 <div class="space-y-3" id="transFilters">
@@ -204,9 +158,9 @@
         <div class="flex justify-between items-center mb-8">
             <p class="text-on-surface-variant text-sm">Найдено <span id="carCount" class="text-on-surface font-bold">0</span> авто</p>
             <div class="flex items-center gap-4">
-                <a href="map.html" class="flex items-center gap-2 bg-primary text-black px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:shadow-[0_0_20px_rgba(198,198,199,0.3)] transition-all">
+                <a href="map.html" class="flex items-center gap-2 bg-primary text-black px-4 md:px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:shadow-[0_0_20px_rgba(198,198,199,0.3)] transition-all">
                     <span class="material-symbols-outlined text-sm">map</span>
-                    На карте
+                    <span class="hidden sm:inline">На карте</span>
                 </a>
                 <select id="sortSelect" class="bg-surface-container border-none rounded-lg text-xs focus:ring-primary p-2 cursor-pointer">
                     <option value="newest">Сначала новые</option>
@@ -215,106 +169,49 @@
                 </select>
             </div>
         </div>
-        <div id="carGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-20">
-            <!-- Cards will be injected by JS -->
+        <div id="carGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pb-20">
+            <!-- Cards injected by JS -->
         </div>
     </main>
 </div>
 
-<!-- Comparison Bar -->
-<div id="compareBar" class="fixed bottom-0 left-0 w-full bg-surface-container-highest border-t border-primary/20 p-4 transform translate-y-full transition-transform duration-500 z-[60] flex items-center justify-between px-12">
-    <div class="flex items-center gap-6" id="compareItems">
-        <p class="text-sm font-bold uppercase tracking-wider text-primary">Сравнение:</p>
-        <!-- Items here -->
+<!-- Footer -->
+<footer class="bg-zinc-950 w-full pt-16 pb-8 border-t border-zinc-800/30 mt-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-12 px-6 md:px-12 max-w-screen-xl mx-auto">
+        <div class="col-span-2 md:col-span-1">
+            <div class="text-lg font-bold text-zinc-200 mb-6 font-headline">CarLink</div>
+            <p class="text-xs uppercase tracking-widest text-zinc-500">© 2024 CarLink. Премиальная мобильность.</p>
+        </div>
+        <div class="flex flex-col gap-4">
+            <h5 class="font-headline font-bold text-xs uppercase tracking-tighter text-zinc-400">Навигация</h5>
+            <a class="text-xs uppercase tracking-widest text-zinc-500 hover:text-zinc-200 transition-colors" href="home.html">Главная</a>
+            <a class="text-xs uppercase tracking-widest text-zinc-500 hover:text-zinc-200 transition-colors" href="../login.html">Вход</a>
+        </div>
+        <div class="flex flex-col gap-4">
+            <h5 class="font-headline font-bold text-xs uppercase tracking-tighter text-zinc-400">Направления</h5>
+            <a class="text-xs uppercase tracking-widest text-zinc-500 hover:text-zinc-200 transition-colors" href="#">Ташкент</a>
+            <a class="text-xs uppercase tracking-widest text-zinc-500 hover:text-zinc-200 transition-colors" href="#">Самарканд</a>
+        </div>
+        <div class="flex flex-col gap-4">
+            <h5 class="font-headline font-bold text-xs uppercase tracking-tighter text-zinc-400">Регион</h5>
+            <span class="text-xs uppercase tracking-widest text-zinc-100 font-semibold">UZS</span>
+        </div>
     </div>
-    <div class="flex items-center gap-4">
-        <button onclick="clearComparison()" class="text-xs font-bold uppercase text-on-surface-variant hover:text-on-surface transition-colors">Очистить</button>
-        <button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-bold text-sm">Сравнить <span id="compareCount">0</span></button>
-    </div>
-</div>
+</footer>
 
+<script src="../js/cars-data.js"></script>
 <script src="../js/config.js"></script>
-<script src="../js/animations.js"></script>
-<script src="../js/forms.js"></script>
 
 <script>
-    const cars = [
-        {
-            id: 1,
-            name: "Tesla Model 3",
-            type: "Electric",
-            price: 1500000,
-            transmission: "Automatic",
-            image: "https://images.unsplash.com/photo-1536700503339-1e4b06520771?auto=format&fit=crop&q=80&w=800",
-            status: "В наличии",
-            rating: 4.9,
-            city: "Tashkent",
-            year: 2023
-        },
-        {
-            id: 2,
-            name: "Honda CR-V Hybrid",
-            type: "SUV",
-            price: 1200000,
-            transmission: "Automatic",
-            image: "https://images.unsplash.com/photo-1568844293986-8d0400bd4745?auto=format&fit=crop&q=80&w=800",
-            status: "Забронировано",
-            rating: 4.7,
-            city: "Samarkand",
-            year: 2022
-        },
-        {
-            id: 3,
-            name: "Mercedes C-Class AMG",
-            type: "Sedan",
-            price: 2200000,
-            transmission: "Automatic",
-            image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=800",
-            status: "В наличии",
-            rating: 5.0,
-            city: "Tashkent",
-            year: 2023
-        },
-        {
-            id: 4,
-            name: "Audi Q8 S-Line",
-            type: "SUV",
-            price: 3100000,
-            transmission: "Automatic",
-            image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=800",
-            status: "В наличии",
-            rating: 4.8,
-            city: "Bukhara",
-            year: 2023
-        },
-        {
-            id: 5,
-            name: "BMW M5 Competition",
-            type: "Sport",
-            price: 4500000,
-            transmission: "Automatic",
-            image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=800",
-            status: "В наличии",
-            rating: 5.0,
-            city: "Tashkent",
-            year: 2024
-        },
-        {
-            id: 6,
-            name: "Toyota Corolla GR",
-            type: "Sedan",
-            price: 800000,
-            transmission: "Manual",
-            image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&q=80&w=800",
-            status: "В наличии",
-            rating: 4.6,
-            city: "Samarkand",
-            year: 2021
-        }
-    ];
-
+    // Use shared CARS_DB
     let favorites = JSON.parse(localStorage.getItem('carlink_favorites') || '[]');
     let compareList = [];
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('open');
+        document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    }
 
     function renderCars(filteredCars) {
         const grid = document.getElementById('carGrid');
@@ -323,7 +220,7 @@
         if (filteredCars.length === 0) {
             grid.innerHTML = `
                 <div class="col-span-full py-20 text-center">
-                    <span class="material-symbols-outlined text-6xl text-surface-container-highest mb-4">search_off</span>
+                    <span class="material-symbols-outlined text-6xl text-surface-container-highest mb-4 block">search_off</span>
                     <h3 class="text-xl font-bold mb-2">Ничего не найдено</h3>
                     <p class="text-on-surface-variant">Попробуйте изменить параметры поиска</p>
                 </div>
@@ -333,40 +230,35 @@
 
         grid.innerHTML = filteredCars.map(car => {
             const isFav = favorites.includes(car.id);
-            const isComp = compareList.some(c => c.id === car.id);
-            const statusClass = car.status === 'В наличии' ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400';
-            
+            const statusClass = car.status === 'В наличии' ? 'bg-green-500/15 text-green-400 border-green-500/20' : 'bg-red-500/15 text-red-400 border-red-500/20';
+
             return `
-                <div class="group bg-surface-container-lowest rounded-2xl overflow-hidden transition-all duration-500 hover:bg-surface-container border border-white/5 relative">
-                    <!-- Badges -->
-                    <div class="absolute top-4 left-4 z-10 flex flex-col gap-2">
-                        <span class="${statusClass} px-2 py-1 rounded text-[10px] font-bold uppercase tracking-tighter backdrop-blur-md">${car.status}</span>
+                <div class="group bg-surface-container-lowest rounded-2xl overflow-hidden transition-all duration-500 hover:bg-surface-container border border-white/5 hover:border-primary/20 relative">
+                    <div class="absolute top-4 left-4 z-10">
+                        <span class="${statusClass} px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-tighter backdrop-blur-md border">${car.status}</span>
                     </div>
-
-                    <!-- Action Buttons -->
-                    <div class="absolute top-4 right-4 z-10 flex flex-col gap-2">
+                    <div class="absolute top-4 right-4 z-10">
                         <button onclick="toggleFavorite(${car.id})" class="p-2 bg-black/40 backdrop-blur-md rounded-full text-white hover:text-primary transition-colors">
-                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' ${isFav ? 1 : 0}">${isFav ? 'favorite' : 'favorite'}</span>
-                        </button>
-                        <button onclick="toggleCompare(${car.id})" class="p-2 bg-black/40 backdrop-blur-md rounded-full ${isComp ? 'text-primary' : 'text-white'} hover:text-primary transition-colors">
-                            <span class="material-symbols-outlined">compare_arrows</span>
+                            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' ${isFav ? 1 : 0}">favorite</span>
                         </button>
                     </div>
 
-                    <div class="aspect-[16/11] overflow-hidden relative">
-                        <img alt="${car.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="${car.image}"/>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                            <a href="car-details.html?id=${car.id}" class="w-full py-2 bg-white text-black rounded-lg text-xs font-bold text-center">Подробнее</a>
+                    <a href="car-details.html?id=${car.id}" class="block">
+                        <div class="aspect-[16/11] overflow-hidden relative">
+                            <img alt="${car.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="${car.image}" loading="lazy" onerror="this.src='https://cdn.pixabay.com/photo/2016/11/22/23/38/black-1851122_1280.jpg'"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                <span class="w-full py-2 bg-white text-black rounded-lg text-xs font-bold text-center block">Подробнее</span>
+                            </div>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="p-6">
+                    <div class="p-5 md:p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <div class="flex items-center gap-2 mb-1">
-                                    <span class="text-[10px] uppercase tracking-widest text-primary-dim font-bold">${car.type}</span>
+                                    <span class="text-[10px] uppercase tracking-widest text-primary-dim font-bold">${car.typeRu}</span>
                                     <span class="w-1 h-1 rounded-full bg-on-surface-variant"></span>
-                                    <span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">${car.city}</span>
+                                    <span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">${car.cityRu}</span>
                                 </div>
                                 <h3 class="text-lg font-headline font-extrabold group-hover:text-primary transition-colors">${car.name}</h3>
                             </div>
@@ -376,7 +268,7 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-3 gap-2 mb-6 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
+                        <div class="grid grid-cols-3 gap-2 mb-5 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                             <div class="bg-surface-variant/30 p-2 rounded-lg flex flex-col items-center gap-1">
                                 <span class="material-symbols-outlined text-sm">settings_input_component</span>
                                 <span>${car.transmission === 'Automatic' ? 'АКПП' : 'МКПП'}</span>
@@ -387,7 +279,7 @@
                             </div>
                             <div class="bg-surface-variant/30 p-2 rounded-lg flex flex-col items-center gap-1">
                                 <span class="material-symbols-outlined text-sm">local_gas_station</span>
-                                <span>Бензин</span>
+                                <span>${car.fuel}</span>
                             </div>
                         </div>
 
@@ -397,12 +289,8 @@
                                     <span class="text-xl font-headline font-extrabold text-on-surface">${car.price.toLocaleString()}</span>
                                     <span class="text-[8px] text-on-surface-variant font-black uppercase tracking-tighter">UZS / ДЕНЬ</span>
                                 </div>
-                                <div class="flex items-baseline gap-1">
-                                    <span class="text-sm font-bold text-primary">${(car.price / 10).toLocaleString()}</span>
-                                    <span class="text-[8px] text-primary/60 font-black uppercase tracking-tighter">UZS / ЧАС</span>
-                                </div>
                             </div>
-                            <button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-xs font-bold active:scale-95 transition-all reserve-btn" data-car="${car.name}" data-price="${car.price}">Забронировать</button>
+                            <a href="car-details.html?id=${car.id}" class="bg-primary text-on-primary px-4 py-2 rounded-lg text-xs font-bold active:scale-95 transition-all hover:bg-white">Забронировать</a>
                         </div>
                     </div>
                 </div>
@@ -416,7 +304,7 @@
         const selectedTrans = Array.from(document.querySelectorAll('#transFilters input:checked')).map(i => i.value);
         const selectedCity = document.getElementById('citySearch').value;
 
-        let filtered = cars.filter(car => {
+        let filtered = CARS_DB.filter(car => {
             const matchesPrice = car.price <= maxPrice;
             const matchesType = selectedType === 'all' || car.type === selectedType;
             const matchesTrans = selectedTrans.includes(car.transmission);
@@ -424,7 +312,6 @@
             return matchesPrice && matchesType && matchesTrans && matchesCity;
         });
 
-        // Sort
         const sortBy = document.getElementById('sortSelect').value;
         if (sortBy === 'price-low') filtered.sort((a, b) => a.price - b.price);
         if (sortBy === 'price-high') filtered.sort((a, b) => b.price - a.price);
@@ -443,55 +330,8 @@
         applyFilters();
     }
 
-    function toggleCompare(id) {
-        const car = cars.find(c => c.id === id);
-        const index = compareList.findIndex(c => c.id === id);
-        
-        if (index > -1) {
-            compareList.splice(index, 1);
-        } else {
-            if (compareList.length >= 4) {
-                alert('Максимум 4 авто для сравнения');
-                return;
-            }
-            compareList.push(car);
-        }
-        updateCompareBar();
-        applyFilters();
-    }
-
-    function updateCompareBar() {
-        const bar = document.getElementById('compareBar');
-        const items = document.getElementById('compareItems');
-        const count = document.getElementById('compareCount');
-        
-        if (compareList.length > 0) {
-            bar.classList.remove('translate-y-full');
-            count.textContent = compareList.length;
-            
-            items.innerHTML = `
-                <p class="text-sm font-bold uppercase tracking-wider text-primary">Сравнение:</p>
-                ${compareList.map(c => `
-                    <div class="flex items-center gap-2 bg-surface-container p-1 pr-3 rounded-lg border border-white/5">
-                        <img src="${c.image}" class="w-8 h-8 rounded object-cover"/>
-                        <span class="text-xs font-bold">${c.name}</span>
-                        <button onclick="toggleCompare(${c.id})" class="material-symbols-outlined text-sm hover:text-red-400">close</button>
-                    </div>
-                `).join('')}
-            `;
-        } else {
-            bar.classList.add('translate-y-full');
-        }
-    }
-
-    function clearComparison() {
-        compareList = [];
-        updateCompareBar();
-        applyFilters();
-    }
-
     function resetFilters() {
-        document.getElementById('priceFilter').value = 5000000;
+        document.getElementById('priceFilter').value = 10000000;
         document.querySelector('input[name="type"][value="all"]').checked = true;
         document.querySelectorAll('#transFilters input').forEach(i => i.checked = true);
         document.getElementById('citySearch').value = 'all';
@@ -504,6 +344,12 @@
     document.querySelectorAll('#transFilters input').forEach(i => i.addEventListener('change', applyFilters));
     document.getElementById('citySearch').addEventListener('change', applyFilters);
     document.getElementById('sortSelect').addEventListener('change', applyFilters);
+
+    // Check URL params for city filter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('city')) {
+        document.getElementById('citySearch').value = urlParams.get('city');
+    }
 
     // Initial render
     applyFilters();
