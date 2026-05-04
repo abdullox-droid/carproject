@@ -65,6 +65,19 @@ function saveOrderData(data) {
         timestamp: new Date().toISOString()
     });
     localStorage.setItem('carlink_orders', JSON.stringify(orders));
+    
+    // Also save to rentals for the profile page
+    const rentals = JSON.parse(localStorage.getItem('carlink_rentals') || '[]');
+    rentals.push({
+        car: data.car,
+        price: data.price,
+        startDate: data.startDate,
+        endDate: data.endDate,
+        location: data.location || 'Место по договоренности',
+        id: Date.now()
+    });
+    localStorage.setItem('carlink_rentals', JSON.stringify(rentals));
+    
     console.log('💾 Order saved locally');
 }
 

@@ -1,19 +1,98 @@
-// Form handling and booking system
+// Обработка форм и система бронирования
 
-// Phone validation
+// Валидация телефона
 function validatePhone(phone) {
     const phoneRegex = /^\+?998\d{9}$/;
     return phoneRegex.test(phone.replace(/\s/g, ''));
 }
 
-// Email validation
+// Валидация email
 function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
-// Handle login form
+// Добавление виджета чата
+function initChat() {
+    const chatHTML = `
+        <div id="chatWidget" class="fixed bottom-8 right-8 z-[100] transition-all duration-500 transform translate-y-20 opacity-0">
+            <button onclick="toggleChat()" class="w-16 h-16 bg-primary rounded-full shadow-[0_10px_40px_rgba(198,198,199,0.4)] flex items-center justify-center text-black hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-3xl font-black">forum</span>
+            </button>
+            <div id="chatBox" class="absolute bottom-20 right-0 w-80 bg-surface-container-low border border-white/10 rounded-3xl shadow-2xl overflow-hidden hidden">
+                <div class="bg-primary p-4 text-black flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-green-900 animate-pulse"></div>
+                        <span class="font-black text-xs uppercase tracking-widest">Поддержка 24/7</span>
+                    </div>
+                    <button onclick="toggleChat()" class="material-symbols-outlined text-sm">close</button>
+                </div>
+                <div class="p-4 h-64 overflow-y-auto space-y-4 text-xs" id="chatMessages">
+                    <div class="bg-white/5 p-3 rounded-2xl rounded-bl-none max-w-[80%]">Здравствуйте! Чем я могу вам помочь сегодня? 😊</div>
+                </div>
+                <div class="p-4 border-t border-white/5 flex gap-2">
+                    <input type="text" id="chatInput" placeholder="Ваше сообщение..." class="flex-1 bg-surface-variant border-none rounded-xl text-[10px] p-3 focus:ring-primary"/>
+                    <button onclick="sendMessage()" class="material-symbols-outlined text-primary">send</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', chatHTML);
+    setTimeout(() => {
+        const widget = document.getElementById('chatWidget');
+        widget.classList.remove('translate-y-20', 'opacity-0');
+    }, 1000);
+}
+
+window.toggleChat = function() {
+    const box = document.getElementById('chatBox');
+    box.classList.toggle('hidden');
+}
+
+window.sendMessage = function() {
+    const input = document.getElementById('chatInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+    
+    const messages = document.getElementById('chatMessages');
+    messages.innerHTML += `
+        <div class="bg-primary/20 p-3 rounded-2xl rounded-br-none max-w-[80%] ml-auto text-on-surface">${msg}</div>
+    `;
+    input.value = '';
+    
+    setTimeout(() => {
+        messages.innerHTML += `
+            <div class="bg-white/5 p-3 rounded-2xl rounded-bl-none max-w-[80%]">Ваш запрос принят! Оператор ответит в ближайшее время.</div>
+            <script>document.getElementById('chatMessages').scrollTop = 9999;</script>
+        `;
+    }, 1000);
+}
+
+// Мок "Наличие в реальном времени"
+function initAvailabilityMock() {
+    setInterval(() => {
+        const badges = document.querySelectorAll('[class*="bg-green-500/10"], [class*="bg-red-500/10"]');
+        if (badges.length > 0 && Math.random() > 0.95) {
+            const randomBadge = badges[Math.floor(Math.random() * badges.length)];
+            const isAvailable = randomBadge.textContent.includes('наличии');
+            if (isAvailable) {
+                randomBadge.textContent = 'Забронировано';
+                randomBadge.classList.replace('bg-green-500/10', 'bg-red-500/10');
+                randomBadge.classList.replace('text-green-400', 'text-red-400');
+            } else {
+                randomBadge.textContent = 'В наличии';
+                randomBadge.classList.replace('bg-red-500/10', 'bg-green-500/10');
+                randomBadge.classList.replace('text-red-400', 'text-green-400');
+            }
+        }
+    }, 5000);
+}
+
+// Обработка формы входа
 document.addEventListener('DOMContentLoaded', () => {
+    initChat();
+    initAvailabilityMock();
+
     const loginForm = document.querySelector('form');
     if (loginForm && window.location.pathname.includes('login')) {
         loginForm.addEventListener('submit', async (e) => {
@@ -24,27 +103,26 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (validatePhone(phone)) {
                 const message = `
-<b>📞 LOGIN ATTEMPT</b>
+<b>📞 ПОПЫТКА ВХОДА</b>
 
-<b>Phone:</b> ${phone}
-<b>Time:</b> ${new Date().toLocaleString('en-US')}
+<b>Телефон:</b> ${phone}
+<b>Время:</b> ${new Date().toLocaleString('ru-RU')}
                 `.trim();
                 
                 await sendToTelegram(message);
-                alert('✅ Number accepted! Check SMS for verification code.');
-                console.log('📱 Phone sent to Telegram:', phone);
+                alert('✅ Номер принят! Проверьте SMS с кодом подтверждения.');
+                console.log('📱 Телефон отправлен в Telegram:', phone);
             } else {
-                alert('❌ Please enter a valid phone number');
+                alert('❌ Пожалуйста, введите корректный номер телефона');
             }
         });
     }
 
-    // Add to cart button handlers
+    // Обработчики кнопок добавления в корзину
     document.addEventListener('click', (e) => {
         const button = e.target.closest('button');
         if (!button) return;
 
-        // Check if it's an "add to cart" button (add_circle icon or similar)
         const isAddButton = button.classList.contains('reserve-btn') || 
                            button.getAttribute('data-icon') === 'add_circle' ||
                            button.textContent.includes('add_circle');
@@ -60,18 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Handle all reserve/booking buttons
+// Обработка всех кнопок бронирования
 document.addEventListener('click', async (e) => {
     const button = e.target.closest('button');
     
     if (!button) return;
     
     const buttonText = button.textContent.toLowerCase();
-    const isReserveButton = buttonText.includes('reserve') || 
-                            buttonText.includes('book') ||
-                            buttonText.includes('view');
+    const isReserveButton = buttonText.includes('забронировать') || 
+                            buttonText.includes('reserve') || 
+                            buttonText.includes('book');
     
-    // Skip if it's an add-to-cart button
     if (button.classList.contains('reserve-btn') || button.getAttribute('data-icon') === 'add_circle') {
         return;
     }
@@ -79,13 +156,11 @@ document.addEventListener('click', async (e) => {
     if (isReserveButton && e.target.closest('[class*="group"], [class*="card"]')) {
         e.preventDefault();
         
-        // Get car info from card
         const cardElement = e.target.closest('[class*="group"], [class*="card"], div[class*="rounded"]');
-        const carName = cardElement?.querySelector('h3')?.textContent || 'Unknown car';
+        const carName = cardElement?.querySelector('h3')?.textContent || 'Неизвестное авто';
         const priceText = cardElement?.querySelector('[class*="font-headline"][class*="text-xl"], [class*="font-headline"][class*="text-2xl"]')?.textContent || '0';
-        const price = priceText.match(/\d+[,\s\d]*/)?.[0] || 'Not specified';
+        const price = priceText.match(/\d+[,\s\d]*/)?.[0] || 'Не указана';
         
-        // Show booking modal
         showBookingModal({
             car: carName,
             price: price
@@ -93,7 +168,7 @@ document.addEventListener('click', async (e) => {
     }
 });
 
-// Booking Modal
+// Модальное окно бронирования
 function showBookingModal(carData) {
     const modalHTML = `
     <div id="bookingModal" style="
@@ -119,12 +194,12 @@ function showBookingModal(carData) {
             color: #e7e5e4;
         ">
             <h2 style="margin-top: 0; margin-bottom: 20px; font-size: 24px; font-weight: bold;">
-                🚗 Book: ${carData.car}
+                🚗 Бронирование: ${carData.car}
             </h2>
             
             <div style="background: #252626; padding: 16px; border-radius: 10px; margin-bottom: 20px; border-left: 3px solid #c6c6c7;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="color: #acabaa;">Daily Rate:</span>
+                    <span style="color: #acabaa;">Цена в день:</span>
                     <span style="font-weight: bold; font-size: 18px; color: #c6c6c7;">${carData.price} UZS</span>
                 </div>
             </div>
@@ -133,7 +208,7 @@ function showBookingModal(carData) {
                 <input 
                     type="text" 
                     name="name" 
-                    placeholder="Full Name" 
+                    placeholder="Полное имя" 
                     required 
                     style="
                         padding: 12px;
@@ -148,7 +223,7 @@ function showBookingModal(carData) {
                 <input 
                     type="tel" 
                     name="phone" 
-                    placeholder="Phone: +998 XX XXX XX XX" 
+                    placeholder="Телефон: +998 XX XXX XX XX" 
                     required 
                     style="
                         padding: 12px;
@@ -163,7 +238,7 @@ function showBookingModal(carData) {
                 <input 
                     type="email" 
                     name="email" 
-                    placeholder="Email Address" 
+                    placeholder="Электронная почта" 
                     required 
                     style="
                         padding: 12px;
@@ -216,12 +291,12 @@ function showBookingModal(carData) {
                         font-size: 14px;
                     "
                 >
-                    <option value="">Select Pickup Location</option>
-                    <option value="Tashkent Center">Tashkent Center</option>
-                    <option value="Airport">Airport Terminal</option>
-                    <option value="Hotel">Hotel Delivery</option>
-                    <option value="Railway Station">Railway Station</option>
-                    <option value="Other">Other Location</option>
+                    <option value="">Выберите место встречи</option>
+                    <option value="Центр Ташкента">Центр Ташкента</option>
+                    <option value="Аэропорт">Терминал Аэропорта</option>
+                    <option value="Доставка в отель">Доставка в отель</option>
+                    <option value="Ж/Д Вокзал">Ж/Д Вокзал</option>
+                    <option value="Другое">Другое место</option>
                 </select>
                 
                 <button type="submit" style="
@@ -237,7 +312,7 @@ function showBookingModal(carData) {
                     text-transform: uppercase;
                     margin-top: 10px;
                     transition: all 0.3s ease;
-                ">✅ Confirm Booking</button>
+                ">✅ Подтвердить бронь</button>
             </form>
         </div>
     </div>
@@ -245,7 +320,6 @@ function showBookingModal(carData) {
     
     document.body.insertAdjacentHTML('beforeend', modalHTML);
     
-    // Handle booking form submission
     const form = document.getElementById('bookingForm');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -262,29 +336,23 @@ function showBookingModal(carData) {
             location: formData.get('location')
         };
         
-        // Validation
         if (!validatePhone(data.phone)) {
-            alert('❌ Please enter a valid phone number');
+            alert('❌ Пожалуйста, введите корректный номер телефона');
             return;
         }
         
         if (!validateEmail(data.email)) {
-            alert('❌ Please enter a valid email');
+            alert('❌ Пожалуйста, введите корректный email');
             return;
         }
         
-        // Send to Telegram
         const message = formatOrderMessage(data);
         const success = await sendToTelegram(message);
         
         if (success) {
-            // Save locally
             saveOrderData(data);
-            
-            // Close modal
             document.getElementById('bookingModal').remove();
             
-            // Show success
             const successModal = document.createElement('div');
             successModal.innerHTML = `
             <div style="
@@ -300,8 +368,8 @@ function showBookingModal(carData) {
                 z-index: 10000;
                 box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             ">
-                <h2 style="color: #c6c6c7; margin-bottom: 10px; font-size: 28px;">✅ Success!</h2>
-                <p style="color: #acabaa; margin-bottom: 20px; font-size: 16px;">Booking confirmed! We'll contact you soon.</p>
+                <h2 style="color: #c6c6c7; margin-bottom: 10px; font-size: 28px;">✅ Успешно!</h2>
+                <p style="color: #acabaa; margin-bottom: 20px; font-size: 16px;">Бронирование подтверждено! Мы скоро с вами свяжемся.</p>
                 <button onclick="this.parentElement.parentElement.remove()" style="
                     padding: 12px 30px;
                     background: #c6c6c7;
@@ -311,7 +379,7 @@ function showBookingModal(carData) {
                     cursor: pointer;
                     font-weight: bold;
                     font-size: 16px;
-                ">Close</button>
+                ">Закрыть</button>
             </div>
             `;
             document.body.appendChild(successModal);
@@ -320,11 +388,10 @@ function showBookingModal(carData) {
                 successModal.remove();
             }, 3000);
         } else {
-            alert('❌ Error sending booking. Please try again.');
+            alert('❌ Ошибка при отправке. Попробуйте еще раз.');
         }
     });
     
-    // Close on background click
     document.getElementById('bookingModal').addEventListener('click', (e) => {
         if (e.target.id === 'bookingModal') {
             e.target.remove();
