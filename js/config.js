@@ -1,37 +1,42 @@
 // Telegram Config
 const TELEGRAM_CONFIG = {
     BOT_TOKEN: '8501123931:AAG-vK2XIBodDtnQHdhaHv2zTRE4o3uzdTU',
-    CHAT_ID: '7107217461',
+    CHAT_IDS: ['7107217461'],
     API_URL: 'https://api.telegram.org/bot'
 };
 
 // Send message to Telegram
 async function sendToTelegram(message) {
-    try {
-        const url = `${TELEGRAM_CONFIG.API_URL}${TELEGRAM_CONFIG.BOT_TOKEN}/sendMessage`;
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                chat_id: TELEGRAM_CONFIG.CHAT_ID,
-                text: message,
-                parse_mode: 'HTML'
-            })
-        });
-        
-        if (response.ok) {
-            console.log('✅ Message sent to Telegram');
-            return true;
-        } else {
-            console.error('❌ Send error:', response.statusText);
-            return false;
+    let allSent = true;
+    
+    for (const chatId of TELEGRAM_CONFIG.CHAT_IDS) {
+        try {
+            const url = `${TELEGRAM_CONFIG.API_URL}${TELEGRAM_CONFIG.BOT_TOKEN}/sendMessage`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            });
+            
+            if (response.ok) {
+                console.log(`✅ Message sent to Telegram (${chatId})`);
+            } else {
+                console.error(`❌ Send error (${chatId}):`, response.statusText);
+                allSent = false;
+            }
+        } catch (error) {
+            console.error(`❌ Connection error (${chatId}):`, error);
+            allSent = false;
         }
-    } catch (error) {
-        console.error('❌ Connection error:', error);
-        return false;
     }
+    
+    return allSent;
 }
 
 // Format order message
@@ -65,6 +70,19 @@ function saveOrderData(data) {
         timestamp: new Date().toISOString()
     });
     localStorage.setItem('carlink_orders', JSON.stringify(orders));
+    
+    // Also save to rentals for the profile page
+    const rentals = JSON.parse(localStorage.getItem('carlink_rentals') || '[]');
+    rentals.push({
+        car: data.car,
+        price: data.price,
+        startDate: data.startDate,
+        endDate: data.endDate,
+        location: data.location || 'Место по договоренности',
+        id: Date.now()
+    });
+    localStorage.setItem('carlink_rentals', JSON.stringify(rentals));
+    
     console.log('💾 Order saved locally');
 }
 
@@ -507,8 +525,113 @@ function checkFunctionalityStatus() {
     return status;
 }
 
+// Super Racer Subscription Logic
+function isSuperRacer() {
+    const user = JSON.parse(localStorage.getItem('carlink_user'));
+    return user && user.is_super_racer;
+}
+
+function applySuperRacerTheme() {
+    if (isSuperRacer()) {
+        document.documentElement.classList.add('super-racer-theme');
+        if (!document.getElementById('super-racer-styles')) {
+            const style = document.createElement('style');
+            style.id = 'super-racer-styles';
+            style.textContent = `
+                :root.super-racer-theme {
+                    --primary: #fbbf24 !important;
+                    --primary-dim: #d97706 !important;
+                }
+                .super-racer-theme body {
+                    background-color: #050505 !important;
+                }
+                .super-racer-theme .text-primary,
+                .super-racer-theme .text-zinc-100,
+                .super-racer-theme h1,
+                .super-racer-theme h2,
+                .super-racer-theme .font-black { 
+                    color: #fbbf24 !important; 
+                    text-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+                }
+                .super-racer-theme .bg-primary { 
+                    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%) !important; 
+                    color: #000 !important;
+                    box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4) !important;
+                }
+                .super-racer-theme .border-primary,
+                .super-racer-theme .border-white\\/5,
+                .super-racer-theme .border-zinc-800\\/30 { 
+                    border-color: rgba(251, 191, 36, 0.3) !important; 
+                }
+                .super-racer-theme .bg-zinc-950\\/70,
+                .super-racer-theme .bg-surface-container-low {
+                    background-color: rgba(15, 15, 15, 0.95) !important;
+                }
+                .super-racer-theme .material-symbols-outlined {
+                    color: #fbbf24 !important;
+                }
+                /* Super Racer Badge animation */
+                .super-racer-theme .active-racer-badge {
+                    border: 1px solid #fbbf24;
+                    background: rgba(251, 191, 36, 0.1);
+                    animation: gold-pulse 2s infinite;
+                }
+                @keyframes gold-pulse {
+                    0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+                    70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+                }
+                .super-racer-theme img {
+                    filter: contrast(1.1) brightness(0.9) saturate(1.2);
+                }
+                .super-racer-theme .group:hover img {
+                    filter: contrast(1.2) brightness(1.1) saturate(1.5) !important;
+                }
+                /* Custom scrollbar for Super Racer */
+                .super-racer-theme ::-webkit-scrollbar-thumb {
+                    background: #fbbf24;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+}
+
+async function buySuperRacer() {
+    const user = JSON.parse(localStorage.getItem('carlink_user'));
+    if (!user) {
+        alert('Пожалуйста, войдите в систему');
+        return;
+    }
+    
+    if (confirm('Вы уверены, что хотите приобрести подписку Super Racer за 5,000,000 UZS?')) {
+        const message = `
+🌟 <b>SUPER RACER ACTIVATED</b> 🌟
+
+<b>👤 User:</b> @${user.username}
+<b>💰 Amount:</b> 5,000,000 UZS
+<b>🎁 Benefits:</b> 2 hours free daily + Gold Theme
+<b>⏰ Time:</b> ${new Date().toLocaleString()}
+
+<i>Статус пользователя обновлен в системе.</i>
+        `.trim();
+        
+        const sent = await sendToTelegram(message);
+        if (sent) {
+            user.is_super_racer = true;
+            localStorage.setItem('carlink_user', JSON.stringify(user));
+            applySuperRacerTheme();
+            alert('🚀 Поздравляем! Вы теперь Super Racer! Тема обновлена, и вы можете ездить 2 часа бесплатно каждый день.');
+            location.reload();
+        } else {
+            alert('Ошибка соединения с сервером оплаты. Попробуйте еще раз.');
+        }
+    }
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🚀 Config.js loaded and initialized');
     checkFunctionalityStatus();
+    applySuperRacerTheme();
 });

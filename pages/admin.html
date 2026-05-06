@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Панель администратора - CarLink</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#c6c6c7",
+                        "surface-dim": "#0e0e0e",
+                        "surface-container-low": "#131313",
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { background-color: #0e0e0e; color: #e7e5e4; }
+        ::-webkit-scrollbar { display: none; }
+        .nav-link.active { background-color: rgba(255,255,255,0.05); color: #c6c6c7; border: 1px solid rgba(255,255,255,0.1); }
+        .section { display: none; }
+        .section.active { display: block; }
+    </style>
+</head>
+<body class="font-body selection:bg-primary selection:text-on-primary min-h-screen">
+
+<!-- Sidebar -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low border-r border-white/5 p-8 flex flex-col gap-10 z-50">
+    <div class="text-2xl font-black tracking-tighter text-zinc-100 font-headline">CarLink <span class="text-[10px] bg-primary text-black px-2 py-0.5 rounded ml-2">ADMIN</span></div>
+    <nav class="flex flex-col gap-4">
+        <button onclick="showSection('dashboard')" id="nav-dashboard" class="nav-link active flex items-center gap-4 text-sm font-bold text-on-surface-variant hover:text-on-surface p-4 rounded-2xl transition-all">
+            <span class="material-symbols-outlined">dashboard</span> Дашборд
+        </button>
+        <button onclick="showSection('cars')" id="nav-cars" class="nav-link flex items-center gap-4 text-sm font-bold text-on-surface-variant hover:text-on-surface p-4 rounded-2xl transition-all">
+            <span class="material-symbols-outlined">directions_car</span> Автомобили
+        </button>
+        <button onclick="showSection('users')" id="nav-users" class="nav-link flex items-center gap-4 text-sm font-bold text-on-surface-variant hover:text-on-surface p-4 rounded-2xl transition-all">
+            <span class="material-symbols-outlined">group</span> Пользователи
+        </button>
+        <button onclick="showSection('finances')" id="nav-finances" class="nav-link flex items-center gap-4 text-sm font-bold text-on-surface-variant hover:text-on-surface p-4 rounded-2xl transition-all">
+            <span class="material-symbols-outlined">payments</span> Финансы
+        </button>
+        <button onclick="showSection('settings')" id="nav-settings" class="nav-link flex items-center gap-4 text-sm font-bold text-on-surface-variant hover:text-on-surface p-4 rounded-2xl transition-all">
+            <span class="material-symbols-outlined">settings</span> Настройки
+        </button>
+    </nav>
+    <div class="mt-auto pt-8 border-t border-white/5">
+        <a href="home.html" class="flex items-center gap-4 text-xs font-bold text-on-surface-variant hover:text-on-surface">
+            <span class="material-symbols-outlined text-sm">logout</span> Вернуться на сайт
+        </a>
+    </div>
+</aside>
+
+<!-- Main Admin Content -->
+<main class="ml-64 p-12">
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-12">
+        <div>
+            <h1 id="sectionTitle" class="text-4xl font-headline font-black mb-2">Обзор платформы</h1>
+            <p class="text-on-surface-variant font-bold text-xs uppercase tracking-[0.2em]">Панель управления администратора</p>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="bg-surface-container-low p-2 rounded-xl border border-white/5 flex items-center gap-2 pr-6">
+                <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">notifications</span>
+                </div>
+                <div>
+                    <p class="text-[10px] font-black uppercase text-on-surface-variant leading-none mb-1">Оповещения</p>
+                    <p class="text-sm font-bold" id="notifCount">12 новых</p>
+                </div>
+            </div>
+            <button class="w-12 h-12 rounded-xl bg-surface-container-low border border-white/5 flex items-center justify-center hover:bg-white/5 transition-colors">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Section: Dashboard -->
+    <div id="dashboard" class="section active space-y-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-surface-container-low p-8 rounded-[2rem] border border-white/5 shadow-lg">
+                <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">Всего выручка</p>
+                <p class="text-3xl font-headline font-black">245.8M <span class="text-xs text-primary font-bold uppercase tracking-tighter">UZS</span></p>
+                <div class="mt-4 flex items-center gap-2 text-[10px] font-black text-green-400">
+                    <span class="material-symbols-outlined text-sm">trending_up</span> +24.5%
+                </div>
+            </div>
+            <div class="bg-surface-container-low p-8 rounded-[2rem] border border-white/5 shadow-lg">
+                <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">Активные аренды</p>
+                <p class="text-3xl font-headline font-black">42</p>
+                <div class="mt-4 flex items-center gap-2 text-[10px] font-black text-primary">
+                    <span class="material-symbols-outlined text-sm">schedule</span> 5 сегодня
+                </div>
+            </div>
+            <div class="bg-surface-container-low p-8 rounded-[2rem] border border-white/5 shadow-lg">
+                <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">Автопарк</p>
+                <p class="text-3xl font-headline font-black">156</p>
+                <div class="mt-4 flex items-center gap-2 text-[10px] font-black text-on-surface-variant">
+                    <span class="material-symbols-outlined text-sm">garage</span> 89% занято
+                </div>
+            </div>
+            <div class="bg-surface-container-low p-8 rounded-[2rem] border border-white/5 shadow-lg">
+                <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">Пользователи</p>
+                <p class="text-3xl font-headline font-black">1,842</p>
+                <div class="mt-4 flex items-center gap-2 text-[10px] font-black text-green-400">
+                    <span class="material-symbols-outlined text-sm">person_add</span> +12 сегодня
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 bg-surface-container-low p-10 rounded-[2.5rem] border border-white/5">
+                <div class="flex justify-between items-center mb-10">
+                    <h3 class="text-xl font-headline font-black uppercase tracking-widest">Аналитика бронирований</h3>
+                    <select class="bg-white/5 border border-white/10 rounded-xl text-xs font-bold p-2 focus:ring-0">
+                        <option>За неделю</option>
+                        <option>За месяц</option>
+                    </select>
+                </div>
+                <div class="h-[300px] flex items-end gap-4">
+                    <div class="flex-1 bg-primary/20 h-[60%] rounded-xl relative group cursor-pointer hover:bg-primary/30 transition-all"></div>
+                    <div class="flex-1 bg-primary/20 h-[80%] rounded-xl relative group cursor-pointer hover:bg-primary/30 transition-all"></div>
+                    <div class="flex-1 bg-primary/20 h-[40%] rounded-xl relative group cursor-pointer hover:bg-primary/30 transition-all"></div>
+                    <div class="flex-1 bg-primary/20 h-[95%] rounded-xl relative group cursor-pointer hover:bg-primary/30 transition-all"></div>
+                    <div class="flex-1 bg-primary/20 h-[70%] rounded-xl relative group cursor-pointer hover:bg-primary/30 transition-all"></div>
+                    <div class="flex-1 bg-primary/20 h-[50%] rounded-xl relative group cursor-pointer hover:bg-primary/30 transition-all"></div>
+                    <div class="flex-1 bg-primary h-full rounded-xl shadow-[0_0_50px_rgba(198,198,199,0.3)]"></div>
+                </div>
+            </div>
+
+            <div class="bg-surface-container-low p-10 rounded-[2.5rem] border border-white/5">
+                <h3 class="text-xl font-headline font-black uppercase tracking-widest mb-10">Активность</h3>
+                <div class="space-y-8" id="activityFeed">
+                    <div class="flex items-center gap-6">
+                        <div class="w-10 h-10 rounded-full bg-green-400/20 flex items-center justify-center text-green-400"><span class="material-symbols-outlined text-sm">add_task</span></div>
+                        <div><p class="text-sm font-bold">Бронь подтверждена</p><p class="text-[10px] text-on-surface-variant font-bold uppercase">Tesla Model 3 • 2м</p></div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-sm">person</span></div>
+                        <div><p class="text-sm font-bold">Новый аккаунт</p><p class="text-[10px] text-on-surface-variant font-bold uppercase">Мария С. • 15м</p></div>
+                    </div>
+                </div>
+                <button class="w-full mt-12 py-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">История</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section: Cars Moderation -->
+    <div id="cars" class="section space-y-8">
+        <div class="flex justify-between items-center">
+            <h3 class="text-2xl font-headline font-black uppercase tracking-widest">Модерация автомобилей</h3>
+            <div class="flex gap-2">
+                <button class="bg-white/5 px-4 py-2 rounded-xl text-xs font-bold border border-white/10">Все</button>
+                <button class="bg-primary text-black px-4 py-2 rounded-xl text-xs font-bold">Ожидают</button>
+            </div>
+        </div>
+        <div class="bg-surface-container-low rounded-3xl border border-white/5 overflow-hidden">
+            <table class="w-full text-left border-collapse">
+                <thead class="bg-white/5 text-[10px] uppercase font-black tracking-widest text-on-surface-variant">
+                    <tr>
+                        <th class="p-6">Автомобиль</th>
+                        <th class="p-6">Владелец</th>
+                        <th class="p-6">Цена/День</th>
+                        <th class="p-6">Дата подачи</th>
+                        <th class="p-6">Действие</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    <tr class="hover:bg-white/[0.02] transition-colors">
+                        <td class="p-6 flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1544636331-e268592033c2?auto=format&fit=crop&q=80&w=100" class="w-12 h-12 rounded-lg object-cover"/>
+                            <div><p class="font-bold">BMW M4 Competition</p><p class="text-[10px] text-on-surface-variant uppercase">2023 • Sport</p></div>
+                        </td>
+                        <td class="p-6 font-bold">Алишер Каримов</td>
+                        <td class="p-6 font-bold">3,500,000 UZS</td>
+                        <td class="p-6 text-on-surface-variant">04.05.2024</td>
+                        <td class="p-6 flex gap-2">
+                            <button onclick="action('car', 'approve')" class="p-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500 hover:text-black transition-all"><span class="material-symbols-outlined text-sm">check</span></button>
+                            <button onclick="action('car', 'reject')" class="p-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500 hover:text-black transition-all"><span class="material-symbols-outlined text-sm">close</span></button>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-white/[0.02] transition-colors">
+                        <td class="p-6 flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&q=80&w=100" class="w-12 h-12 rounded-lg object-cover"/>
+                            <div><p class="font-bold">Lexus LX 600</p><p class="text-[10px] text-on-surface-variant uppercase">2024 • SUV</p></div>
+                        </td>
+                        <td class="p-6 font-bold">Сабина Т.</td>
+                        <td class="p-6 font-bold">5,200,000 UZS</td>
+                        <td class="p-6 text-on-surface-variant">03.05.2024</td>
+                        <td class="p-6 flex gap-2">
+                            <button onclick="action('car', 'approve')" class="p-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500 hover:text-black transition-all"><span class="material-symbols-outlined text-sm">check</span></button>
+                            <button onclick="action('car', 'reject')" class="p-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500 hover:text-black transition-all"><span class="material-symbols-outlined text-sm">close</span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Section: Users -->
+    <div id="users" class="section space-y-8">
+        <h3 class="text-2xl font-headline font-black uppercase tracking-widest">База пользователей</h3>
+        <div class="bg-surface-container-low rounded-3xl border border-white/5 overflow-hidden">
+             <table class="w-full text-left border-collapse">
+                <thead class="bg-white/5 text-[10px] uppercase font-black tracking-widest text-on-surface-variant">
+                    <tr>
+                        <th class="p-6">Пользователь</th>
+                        <th class="p-6">Роль</th>
+                        <th class="p-6">Статус</th>
+                        <th class="p-6">Регистрация</th>
+                        <th class="p-6">Действие</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    <tr>
+                        <td class="p-6 flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center font-bold">А</div>
+                            <div><p class="font-bold">Азиз Алимов</p><p class="text-[10px] text-on-surface-variant uppercase">aziz@example.com</p></div>
+                        </td>
+                        <td class="p-6"><span class="bg-primary/20 text-primary px-3 py-1 rounded text-[10px] font-black uppercase">Владелец</span></td>
+                        <td class="p-6 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span><span class="text-xs font-bold">Активен</span></td>
+                        <td class="p-6 text-on-surface-variant">12.04.2024</td>
+                        <td class="p-6"><button onclick="action('user', 'edit')" class="text-xs font-bold uppercase tracking-widest text-primary">Изменить</button></td>
+                    </tr>
+                </tbody>
+             </table>
+        </div>
+    </div>
+
+    <!-- Section: Finances -->
+    <div id="finances" class="section space-y-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-surface-container-low p-10 rounded-[2.5rem] border border-white/5">
+                <h4 class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">Выплачено владельцам</h4>
+                <p class="text-4xl font-headline font-black">182.4M UZS</p>
+                <button class="mt-8 bg-white/5 border border-white/10 px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">Детализация выплат</button>
+            </div>
+            <div class="bg-surface-container-low p-10 rounded-[2.5rem] border border-white/5">
+                <h4 class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">Комиссия сервиса (15%)</h4>
+                <p class="text-4xl font-headline font-black text-primary">36.8M UZS</p>
+                <button class="mt-8 bg-primary text-black px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:shadow-[0_0_30px_rgba(198,198,199,0.3)] transition-all">Выгрузить отчет</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section: Settings -->
+    <div id="settings" class="section space-y-12 max-w-2xl">
+        <div class="space-y-6">
+            <h3 class="text-xl font-headline font-black uppercase tracking-widest">Общие настройки</h3>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-6 bg-surface-container-low rounded-3xl border border-white/5">
+                    <div><p class="font-bold">Режим обслуживания</p><p class="text-[10px] text-on-surface-variant uppercase font-bold">Сайт будет доступен только админам</p></div>
+                    <input type="checkbox" class="w-12 h-6 rounded-full bg-zinc-800 border-none text-primary focus:ring-0 cursor-pointer"/>
+                </div>
+                <div class="flex items-center justify-between p-6 bg-surface-container-low rounded-3xl border border-white/5">
+                    <div><p class="font-bold">Регистрация владельцев</p><p class="text-[10px] text-on-surface-variant uppercase font-bold">Разрешить пользователям сдавать авто</p></div>
+                    <input type="checkbox" checked class="w-12 h-6 rounded-full bg-zinc-800 border-none text-primary focus:ring-0 cursor-pointer"/>
+                </div>
+            </div>
+        </div>
+        <button class="w-full bg-primary text-black py-5 rounded-[2rem] font-black uppercase tracking-[0.2em] text-xs">Сохранить изменения</button>
+    </div>
+</main>
+
+<script>
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        document.getElementById('nav-' + id).classList.add('active');
+
+        // Update Title
+        const titles = {
+            'dashboard': 'Обзор платформы',
+            'cars': 'Автопарк и Модерация',
+            'users': 'Управление пользователями',
+            'finances': 'Финансовый учет',
+            'settings': 'Настройки системы'
+        };
+        document.getElementById('sectionTitle').textContent = titles[id];
+    }
+
+    function action(type, act) {
+        const msg = act === 'approve' ? '✅ Одобрено' : (act === 'reject' ? '❌ Отклонено' : '⚙️ Сохранено');
+        alert(`${msg}: Действие успешно выполнено для ${type === 'car' ? 'автомобиля' : 'пользователя'}`);
+        
+        // Mock remove row
+        const btn = event.target.closest('button');
+        const row = btn.closest('tr');
+        if (row && (act === 'approve' || act === 'reject')) {
+            row.style.opacity = '0.5';
+            row.style.pointerEvents = 'none';
+        }
+    }
+
+    // Auth Check
+    const user = JSON.parse(localStorage.getItem('carlink_user'));
+    if (!user || user.username !== 'admin') {
+        // alert('⚠️ Доступ запрещен. Требуется аккаунт администратора.');
+        // window.location.href = 'home.html';
+    }
+</script>
+</body>
+</html>

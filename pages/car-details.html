@@ -1,303 +1,247 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>CarLink - Premium Mobility</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="dark" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Детали автомобиля — CarLink</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" rel="stylesheet"/>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     "colors": {
-                        "primary-fixed": "#e2e2e2",
-                        "on-surface-variant": "#acabaa",
-                        "primary-container": "#454747",
-                        "tertiary-fixed": "#f4f3f3",
-                        "secondary-fixed": "#e3e2e2",
-                        "error-dim": "#b95463",
-                        "tertiary-fixed-dim": "#e6e5e5",
-                        "inverse-primary": "#5e5f60",
-                        "on-tertiary-container": "#565757",
-                        "on-surface": "#e7e5e4",
-                        "error": "#ec7c8a",
-                        "on-secondary-fixed": "#3e3f40",
                         "primary": "#c6c6c7",
-                        "on-error-container": "#ff97a3",
                         "surface-dim": "#0e0e0e",
                         "surface-container-low": "#131313",
-                        "on-primary": "#3f4041",
-                        "inverse-on-surface": "#565554",
-                        "on-primary-container": "#d0d0d0",
-                        "tertiary": "#faf9f9",
-                        "secondary-fixed-dim": "#d5d4d4",
-                        "secondary-container": "#3a3c3c",
-                        "secondary": "#9e9e9e",
-                        "on-secondary-fixed-variant": "#5b5c5c",
-                        "primary-dim": "#b8b9b9",
-                        "on-primary-fixed": "#3e4040",
-                        "on-tertiary-fixed-variant": "#656666",
-                        "surface-variant": "#252626",
-                        "surface-bright": "#2c2c2c",
-                        "surface-container": "#191a1a",
-                        "on-tertiary": "#5e5f5f",
-                        "on-error": "#490013",
-                        "tertiary-container": "#ebebeb",
-                        "inverse-surface": "#fcf8f8",
-                        "surface-container-highest": "#252626",
-                        "surface-container-high": "#1f2020",
-                        "on-tertiary-fixed": "#484a4a",
-                        "surface-tint": "#c6c6c7",
-                        "surface": "#0e0e0e",
-                        "primary-fixed-dim": "#d4d4d4",
-                        "error-container": "#7f2737",
-                        "background": "#0e0e0e",
-                        "on-primary-fixed-variant": "#5a5c5c",
-                        "outline": "#767575",
-                        "surface-container-lowest": "#000000",
-                        "secondary-dim": "#9e9e9e",
-                        "on-background": "#e7e5e4",
-                        "tertiary-dim": "#ebebeb",
-                        "on-secondary-container": "#bfbfbf",
-                        "on-secondary": "#1f2021",
-                        "outline-variant": "#484848"
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Manrope"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
-                    }
                 },
             },
         }
     </script>
-<style>
-        body {
-            background-color: #0e0e0e;
-            color: #e7e5e4;
-            font-family: 'Inter', sans-serif;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
-        }
-        .glass-header {
-            background: rgba(14, 14, 14, 0.7);
-            backdrop-filter: blur(20px);
-        }
-        .text-shadow-premium {
-            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { background-color: #0e0e0e; color: #e7e5e4; }
+        ::-webkit-scrollbar { display: none; }
+        .calendar-day.busy { color: #ec7c8a; text-decoration: line-through; cursor: not-allowed; opacity: 0.5; }
+        .calendar-day.selected { background-color: #c6c6c7; color: #000; font-weight: 800; border-radius: 0.5rem; }
     </style>
 </head>
-<body class="selection:bg-primary selection:text-on-primary">
-<!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 dark:bg-zinc-950/70 backdrop-blur-xl">
-<div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
-<a href="../index.html" class="text-2xl font-black tracking-tighter dark:text-zinc-100 font-headline">CarLink</a>
-<div class="hidden md:flex items-center gap-8">
-<a class="font-manrope tracking-tight text-sm uppercase dark:text-zinc-500 hover:dark:text-zinc-100 transition-all duration-300" href="home.html">Rent your car</a>
-<a class="font-manrope tracking-tight text-sm uppercase dark:text-zinc-500 hover:dark:text-zinc-100 transition-all duration-300" href="login.html">Login</a>
-</div>
-<div class="flex items-center gap-4">
-<button class="active:scale-95 transition-transform">
-<span class="material-symbols-outlined dark:text-zinc-300 text-2xl">account_circle</span>
-</button>
-</div>
-</div>
+<body class="font-body selection:bg-primary selection:text-on-primary">
+
+<nav class="fixed top-0 w-full z-50 dark:bg-zinc-950/70 backdrop-blur-xl border-b border-white/5">
+    <div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
+        <a href="../index.html" class="text-2xl font-black tracking-tighter dark:text-zinc-100 font-headline">CarLink</a>
+        <a href="catalog.html" class="font-manrope text-xs font-black uppercase tracking-widest text-on-surface-variant">Вернуться в каталог</a>
+    </div>
 </nav>
-<main class="pt-24 pb-32">
-<!-- Hero Gallery Section -->
-<section class="px-4 md:px-12 max-w-screen-2xl mx-auto mb-16">
-<div class="grid grid-cols-12 gap-4 h-[600px]">
-<!-- Main Feature Image -->
-<div class="col-span-12 lg:col-span-8 relative overflow-hidden rounded-xl bg-surface-container-low group">
-<img alt="Porsche Taycan" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="front three-quarter view of a sleek porsche taycan in frozen blue metallic parked in a minimalist concrete architectural space with soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBI4QgD5TRS2xJSxOVBm8yQoMH0pPS9vLIF79XeDHkkhT2kO8HpajvA6p9LSfSp6_u6I2H3Z5urxlWKjwuMYBg74Kg06xFhyVhVGrnPZj_pveK1_Z8CD0hctTUnXtwiRpQi5-WE3qogYUdv6EGPwaITqfboCSOP8sQ_bFAD0FI1YCiYDWI9kHwrYoROG2X_Va-8CMrOtSx4-jo7r1HKzlZn8A_j9IzNFX6b_e_oMThebhR1icTzby0Ox70dWHPw1JH2uaov3vuvbSzG"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
-<div>
-<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-4 inline-block">Premium Tier</span>
-<h1 class="font-headline text-5xl font-extrabold tracking-tighter text-on-surface">Porsche Taycan Turbo S</h1>
-</div>
-</div>
-</div>
-<!-- Secondary Gallery Grid -->
-<div class="hidden lg:grid col-span-4 grid-rows-2 gap-4">
-<div class="relative overflow-hidden rounded-xl bg-surface-container-low">
-<img alt="Taycan Detail" class="w-full h-full object-cover" data-alt="close up of the sleek aerodynamic profile and door handle of a modern electric luxury sedan with metallic finish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHkL_qdlP3o4Yb988kTJngZjPfnPfRgE6ueaJsVYpRh6pO_pM4eMp6CjLYEN_XPLMLdIQknj3abVR393HaTHPA7MseO9RFGd7wPs-lDyZAuzPMal-GOCoOPL2jB6AsmtHRMJuyfbG9Hxppw20JM2ucd4x8TGmXG3Xbkvdw7VAcYMl3WBV-bJB-5cfaSqawLJImkEVy5db360NIU89wtyETehxxKohw_kLl7RjgSnH66Ix9UiKW_ihuWvN9QdT0S334Y35hf8zip4-U"/>
-</div>
-<div class="relative overflow-hidden rounded-xl bg-surface-container-low">
-<img alt="Taycan Interior" class="w-full h-full object-cover" data-alt="luxurious interior of a high-end electric car featuring premium leather seats and digital dashboard displays in a dimly lit setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArTsqhROn_hO7JLSQybQaYSvo1TcJRk4QvnWEmDU8kBt83I2UP9VsfqDW5H-HWy8z1NMXUqVF6ZgoqZcwQEfiKWu-XTm4LNodAudXWFb4V7X0LUXHgKRNuhbQnzRL7GJfzlsW6hx8_7bTtcZuj1dOYuHq41M2oATvxbndWwInjq1RZcnI2Vt7WhLnRKf2DeaXHd4RLYJcGRKx2J4L6ej4ghG_YsZ1vw23Ny5M1-0L6oNnclUpuIeMi_z0kI1Nid5hTGOEsdRgZvEOX"/>
-</div>
-</div>
-</div>
-</section>
-<!-- Content Shell -->
-<section class="px-4 md:px-12 max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
-<!-- Details Column -->
-<div class="lg:col-span-7 space-y-12">
-<!-- Quick Specs Bento -->
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
-<span class="material-symbols-outlined text-primary mb-2">bolt</span>
-<p class="text-xs text-on-surface-variant uppercase tracking-widest font-semibold">Power</p>
-<p class="text-xl font-headline font-bold">750 HP</p>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
-<span class="material-symbols-outlined text-primary mb-2">speed</span>
-<p class="text-xs text-on-surface-variant uppercase tracking-widest font-semibold">0-100 km/h</p>
-<p class="text-xl font-headline font-bold">2.8s</p>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
-<span class="material-symbols-outlined text-primary mb-2">ev_station</span>
-<p class="text-xs text-on-surface-variant uppercase tracking-widest font-semibold">Range</p>
-<p class="text-xl font-headline font-bold">450 km</p>
-</div>
-<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
-<span class="material-symbols-outlined text-primary mb-2">airline_seat_recline_extra</span>
-<p class="text-xs text-on-surface-variant uppercase tracking-widest font-semibold">Seats</p>
-<p class="text-xl font-headline font-bold">4</p>
-</div>
-</div>
-<!-- Description -->
-<div>
-<h2 class="font-headline text-2xl font-bold mb-6 tracking-tight">The Future of Performance</h2>
-<p class="text-on-surface-variant leading-relaxed text-lg max-w-2xl">
-                        Experience the soul of a Porsche, electrified. The Taycan Turbo S represents the pinnacle of sustainable performance. This specific model features a bespoke Frozen Blue finish, Performance Battery Plus, and the exclusive Sport Chrono Package. Perfect for making a statement in Tashkent's burgeoning premium scene.
-                    </p>
-</div>
-<!-- Host Profile -->
-<div class="bg-surface-container-low p-8 rounded-xl flex items-center justify-between">
-<div class="flex items-center gap-6">
-<div class="relative">
-<img alt="Host profile" class="w-16 h-16 rounded-full object-cover" data-alt="portrait of a professional male concierge in a black suit with a friendly and confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYy2tP1PvQTqc2oF6pQkrF6l8IBZqXfWLdkW2Fvn199cfeYIeNPKzIo95EP9UT3pUs_zBKdtt4gWIk9eHyXydvT3X_KXzVKNKvX7cOi1euoZZ3Em0gASAK6XK0ZQ0mWVQyMxEbkZ6Y3U97ToFMJBZfhQmO8SBE1iGNKUd7zCt6f0CYheEHAJIXL5smtjlc3M0a-JtPdf7Qs4l3aolEEiZ224_3rehmunkRC8QcPq7_HHTXK56xQKQmfmM1maNbl_ZPVJ9y5swPTWfn"/>
-<div class="absolute -bottom-1 -right-1 bg-primary text-on-primary rounded-full p-1 border-4 border-surface-container-low">
-<span class="material-symbols-outlined text-xs leading-none" style="font-variation-settings: 'FILL' 1;">verified</span>
-</div>
-</div>
-<div>
-<p class="text-xs text-on-surface-variant uppercase tracking-widest font-bold">Owned by</p>
-<h3 class="font-headline text-xl font-bold">Aziz Alimov</h3>
-<div class="flex items-center gap-1 mt-1">
-<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-sm font-semibold">4.98</span>
-<span class="text-xs text-on-surface-variant ml-2">(124 trips)</span>
-</div>
-</div>
-</div>
-<button class="text-primary font-bold uppercase tracking-widest text-xs hover:bg-primary/10 px-4 py-2 rounded-lg transition-colors">Contact Host</button>
-</div>
-</div>
-<!-- Booking Sidebar -->
-<div class="lg:col-span-5">
-<div class="sticky top-32 space-y-6">
-<div class="bg-surface-container-highest p-8 rounded-xl border border-outline-variant/20 shadow-2xl">
-<div class="flex justify-between items-start mb-8">
-<div>
-<p class="text-xs text-on-surface-variant uppercase tracking-widest font-bold mb-1">Daily Rate</p>
-<div class="flex items-baseline gap-2">
-<span class="font-headline text-4xl font-extrabold text-on-surface">4,500,000</span>
-<span class="font-headline text-sm font-medium text-on-surface-variant uppercase">UZS / day</span>
-</div>
-</div>
-<div class="bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">Available Now</div>
-</div>
-<div class="space-y-4 mb-8">
-<div class="grid grid-cols-2 gap-4">
-<div class="bg-surface-variant p-4 rounded-lg">
-<label class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Pickup</label>
-<p class="text-sm font-medium">May 24, 10:00</p>
-</div>
-<div class="bg-surface-variant p-4 rounded-lg">
-<label class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Return</label>
-<p class="text-sm font-medium">May 26, 10:00</p>
-</div>
-</div>
-<div class="bg-surface-variant p-4 rounded-lg flex justify-between items-center">
-<div>
-<label class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Delivery Location</label>
-<p class="text-sm font-medium">Tashkent International Airport</p>
-</label></div>
-<span class="material-symbols-outlined text-on-surface-variant">keyboard_arrow_right</span>
-</div>
-</div>
-<div class="space-y-3 mb-8 border-t border-outline-variant/10 pt-6">
-<div class="flex justify-between text-sm">
-<span class="text-on-surface-variant">4,500,000 UZS x 2 days</span>
-<span class="font-medium">9,000,000 UZS</span>
-</div>
-<div class="flex justify-between text-sm">
-<span class="text-on-surface-variant">Insurance (Premium coverage)</span>
-<span class="font-medium">850,000 UZS</span>
-</div>
-<div class="flex justify-between text-sm">
-<span class="text-on-surface-variant">Service fee</span>
-<span class="font-medium">150,000 UZS</span>
-</div>
-<div class="flex justify-between text-lg font-bold border-t border-outline-variant/10 pt-4 mt-2">
-<span>Total Price</span>
-<span>10,000,000 UZS</span>
-</div>
-</div>
-<button class="w-full bg-primary text-on-primary py-5 rounded-xl font-bold uppercase tracking-[0.2em] text-sm active:scale-95 transition-transform hover:shadow-[0_0_30px_rgba(198,198,199,0.2)]">
-                            Забронировать
-                        </button>
-</div>
-<!-- Trust Badge -->
-<div class="flex items-center gap-4 px-4 text-on-surface-variant">
-<span class="material-symbols-outlined">verified_user</span>
-<p class="text-xs leading-tight">100% Secure Transaction &amp; Comprehensive Insurance included in all rentals.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Location Map Section -->
-<section class="px-4 md:px-12 max-w-screen-2xl mx-auto mt-24">
-<h2 class="font-headline text-2xl font-bold mb-8 tracking-tight">Location</h2>
-<div class="h-[400px] w-full rounded-2xl overflow-hidden grayscale contrast-125 opacity-80 border border-outline-variant/20">
-<img alt="Map location" class="w-full h-full object-cover" data-alt="abstract stylized aerial map of a modern city grid with glowing lines on a dark background" data-location="Tashkent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXmTkuZwFuAoXPwGiNjr7_mqkU90dQ-LPk5Czeru5xYbQEPOv-MUPAU-tJvG9U4CBHThOhr-r2tpcEJY-kClYB4ZgItP7-SYxsl_VEzzPQemgakfcQsGAQOnyw8llFK03ol76qOWSY3OnyZtD7LMfOXXBP0SeiDW7v-yErZ9-ZX5WjPbIzHidK2c6fYcZBLuG356XZA8_fHVrmIZfzgBwYYV99P2ddhIGr4fQ5nvMXV4qTz2Axh1AMEXN02qtO6MaqvkPs_CP1RPYv"/>
-</div>
-</section>
+
+<main class="pt-24 pb-32 px-8 max-w-screen-2xl mx-auto">
+    <!-- Step 3: Car Card & Decision Screen -->
+    <div id="step-3" class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <div class="lg:col-span-8">
+            <div class="rounded-[3rem] overflow-hidden mb-10 h-[600px] relative shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1614200024993-21c60a2cc62a?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-12">
+                    <h1 class="text-6xl font-headline font-black tracking-tighter">Porsche Taycan Turbo S</h1>
+                </div>
+            </div>
+            
+            <!-- Specs & Deposit -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-surface-container-low p-8 rounded-3xl border border-white/5">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Характеристики</p>
+                    <p class="text-xl font-headline font-black">750 л.с. • Электро</p>
+                </div>
+                <div class="bg-surface-container-low p-8 rounded-3xl border border-white/5">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Рейтинг</p>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl font-headline font-black">4.9</span>
+                        <div class="flex text-primary"><span class="material-symbols-outlined text-sm">star</span></div>
+                    </div>
+                </div>
+                <div class="bg-surface-container-low p-8 rounded-3xl border border-primary/30">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-primary mb-2">Залог (Deposit)</p>
+                    <p class="text-xl font-headline font-black">5,000,000 UZS</p>
+                    <p class="text-[9px] text-on-surface-variant font-bold uppercase mt-1">Возвращается сразу</p>
+                </div>
+            </div>
+
+            <!-- Owner Info Section -->
+            <div class="bg-surface-container-low p-10 rounded-[2.5rem] border border-white/5 mb-12 flex flex-col md:flex-row items-center gap-10">
+                <div class="relative shrink-0">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200" class="w-32 h-32 rounded-3xl object-cover border-4 border-primary/20 shadow-2xl"/>
+                    <div class="absolute -bottom-2 -right-2 bg-primary text-black rounded-lg p-1.5 border-4 border-surface-container-low">
+                        <span class="material-symbols-outlined text-sm font-black">verified</span>
+                    </div>
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <div class="flex flex-wrap items-center gap-4 mb-2 justify-center md:justify-start">
+                        <h3 class="text-2xl font-headline font-black">Джамшид К.</h3>
+                        <span class="bg-primary/10 text-primary px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">Топ-хост</span>
+                    </div>
+                    <p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Привет! Я занимаюсь арендой премиальных авто в Ташкенте уже 3 года. Гарантирую чистоту, полный бак и пунктуальность. Все машины в моем парке проходят ТО каждые 5000 км.</p>
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl">
+                            <span class="material-symbols-outlined text-sm text-yellow-500">star</span>
+                            <span class="text-xs font-black">4.98 (215 отзывов)</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl">
+                            <span class="material-symbols-outlined text-sm text-primary">schedule</span>
+                            <span class="text-xs font-black">Ответ за 5 мин</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="bg-white/5 border border-white/10 hover:bg-white/10 px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all">Связаться</button>
+            </div>
+
+            <div class="prose prose-invert max-w-none">
+                <h3 class="text-2xl font-headline font-black mb-4">Опыт вождения</h3>
+                <p class="text-on-surface-variant text-lg leading-relaxed">Идеальное состояние, полная зарядка перед подачей. Спортивная подвеска и премиальная акустика Burmester.</p>
+            </div>
+        </div>
+
+        <div class="lg:col-span-4">
+            <div class="bg-surface-container-highest p-10 rounded-[3rem] border border-white/10 sticky top-24 shadow-2xl">
+                <div class="mb-10">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Цена аренды</p>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-5xl font-headline font-black text-on-surface">4,500,000</span>
+                        <span class="text-xs font-bold uppercase text-on-surface-variant">UZS / ДЕНЬ</span>
+                    </div>
+                </div>
+                <button onclick="goToStep(4)" class="w-full bg-primary text-black py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:shadow-[0_0_40px_rgba(198,198,199,0.3)] transition-all">Забронировать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 4: Dates & Calendar -->
+    <div id="step-4" class="hidden max-w-4xl mx-auto">
+        <div class="flex justify-between items-center mb-12">
+            <h2 class="text-4xl font-headline font-black">Выберите период</h2>
+            <button onclick="goToStep(3)" class="text-xs font-black uppercase tracking-widest text-on-surface-variant">Назад</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Mock Calendar -->
+            <div class="bg-surface-container-low p-8 rounded-[3rem] border border-white/5">
+                <div class="flex justify-between mb-8">
+                    <span class="font-bold">Май 2024</span>
+                    <div class="flex gap-4"><span class="material-symbols-outlined text-sm">chevron_left</span><span class="material-symbols-outlined text-sm">chevron_right</span></div>
+                </div>
+                <div class="grid grid-cols-7 gap-4 text-center text-xs font-black text-on-surface-variant mb-4">
+                    <span>ПН</span><span>ВТ</span><span>СР</span><span>ЧТ</span><span>ПТ</span><span>СБ</span><span>ВС</span>
+                </div>
+                <div class="grid grid-cols-7 gap-4 text-center text-xs font-bold">
+                    <span class="p-2 opacity-20">29</span><span class="p-2 opacity-20">30</span>
+                    <button class="calendar-day p-2 hover:bg-white/5 rounded-lg transition-all" onclick="selectDay(this, 1)">1</button>
+                    <button class="calendar-day p-2 hover:bg-white/5 rounded-lg transition-all" onclick="selectDay(this, 2)">2</button>
+                    <button class="calendar-day p-2 hover:bg-white/5 rounded-lg transition-all" onclick="selectDay(this, 3)">3</button>
+                    <button class="calendar-day busy p-2">4</button>
+                    <button class="calendar-day busy p-2">5</button>
+                    <button class="calendar-day p-2 hover:bg-white/5 rounded-lg transition-all" onclick="selectDay(this, 6)">6</button>
+                    <button class="calendar-day p-2 hover:bg-white/5 rounded-lg transition-all" onclick="selectDay(this, 7)">7</button>
+                    <button class="calendar-day selected p-2" onclick="selectDay(this, 8)">8</button>
+                    <button class="calendar-day selected p-2" onclick="selectDay(this, 9)">9</button>
+                    <button class="calendar-day p-2 hover:bg-white/5 rounded-lg transition-all" onclick="selectDay(this, 10)">10</button>
+                </div>
+                <div class="mt-8 flex items-center gap-4">
+                    <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-red-500"></div><span class="text-[10px] uppercase font-bold text-on-surface-variant">Занято</span></div>
+                    <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-primary"></div><span class="text-[10px] uppercase font-bold text-on-surface-variant">Выбрано</span></div>
+                </div>
+            </div>
+            
+            <div class="space-y-8">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Место получения</label>
+                    <select class="w-full bg-surface-container-low border border-white/10 rounded-2xl p-5 text-sm focus:ring-primary cursor-pointer">
+                        <option>Аэропорт Ташкента</option>
+                        <option>Гостиница Hyatt Regency</option>
+                        <option>Доставка по адресу</option>
+                    </select>
+                </div>
+                <div class="bg-primary/5 p-8 rounded-3xl border border-primary/20">
+                    <div class="flex justify-between items-baseline mb-2">
+                        <span class="text-xs font-bold text-on-surface-variant uppercase">Итого (2 дня)</span>
+                        <span class="text-3xl font-headline font-black text-primary">9,000,000 UZS</span>
+                    </div>
+                </div>
+                <button onclick="goToStep(5)" class="w-full bg-primary text-black py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-xs">К опциям</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 5: Options -->
+    <div id="step-5" class="hidden max-w-2xl mx-auto">
+        <div class="flex justify-between items-center mb-12">
+            <h2 class="text-4xl font-headline font-black">Добавьте опции</h2>
+            <button onclick="goToStep(4)" class="text-xs font-black uppercase tracking-widest text-on-surface-variant">Назад</button>
+        </div>
+        <div class="space-y-4">
+            <label class="flex items-center justify-between p-8 bg-surface-container-low rounded-3xl border border-white/5 cursor-pointer hover:border-primary/50 transition-all">
+                <div class="flex items-center gap-6">
+                    <input type="checkbox" checked onchange="recalc()" class="w-6 h-6 rounded-lg text-primary bg-zinc-900 border-zinc-700"/>
+                    <div>
+                        <p class="text-lg font-black">Страховка KASKO+</p>
+                        <p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest">Максимальная защита без франшизы</p>
+                    </div>
+                </div>
+                <span class="font-black text-primary">+800,000 UZS</span>
+            </label>
+            <label class="flex items-center justify-between p-8 bg-surface-container-low rounded-3xl border border-white/5 cursor-pointer hover:border-primary/50 transition-all">
+                <div class="flex items-center gap-6">
+                    <input type="checkbox" onchange="recalc()" class="w-6 h-6 rounded-lg text-primary bg-zinc-900 border-zinc-700"/>
+                    <div>
+                        <p class="text-lg font-black">Детское кресло</p>
+                        <p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest">Безопасность для вашего ребенка</p>
+                    </div>
+                </div>
+                <span class="font-black text-on-surface-variant">+50,000 UZS</span>
+            </label>
+            <label class="flex items-center justify-between p-8 bg-surface-container-low rounded-3xl border border-white/5 cursor-pointer hover:border-primary/50 transition-all">
+                <div class="flex items-center gap-6">
+                    <input type="checkbox" onchange="recalc()" class="w-6 h-6 rounded-lg text-primary bg-zinc-900 border-zinc-700"/>
+                    <div>
+                        <p class="text-lg font-black">Wi-Fi Роутер</p>
+                        <p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest">Безлимитный интернет в поездке</p>
+                    </div>
+                </div>
+                <span class="font-black text-on-surface-variant">+120,000 UZS</span>
+            </label>
+        </div>
+        <div class="mt-12 p-10 bg-surface-container-highest rounded-[3rem] border border-primary/20 text-center">
+            <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Общая сумма с опциями</p>
+            <p id="totalPrice" class="text-5xl font-headline font-black text-on-surface mb-10">9,800,000 UZS</p>
+            <button onclick="goToStep(6)" class="w-full bg-primary text-black py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:shadow-[0_0_50px_rgba(198,198,199,0.3)] transition-all">Перейти к оплате</button>
+        </div>
+    </div>
 </main>
-<!-- Footer -->
-<footer class="w-full pt-16 pb-8 dark:bg-zinc-900 border-t border-zinc-800/30">
-<div class="grid grid-cols-2 md:grid-cols-4 gap-12 px-12 max-w-screen-xl mx-auto">
-<div>
-<div class="text-lg font-bold dark:text-zinc-200 mb-6 font-headline tracking-tighter">CarLink</div>
-<p class="font-inter text-xs uppercase tracking-widest dark:text-zinc-500 leading-relaxed">© 2024 CarLink. Premium Mobility.</p>
-</div>
-<div>
-<h4 class="font-headline text-xs font-bold uppercase tracking-widest mb-6 text-on-surface">Legal</h4>
-<ul class="space-y-4">
-<li><a class="font-inter text-xs uppercase tracking-widest dark:text-zinc-500 hover:dark:text-zinc-100 transition-colors" href="#">Terms</a></li>
-<li><a class="font-inter text-xs uppercase tracking-widest dark:text-zinc-500 hover:dark:text-zinc-100 transition-colors" href="#">Privacy</a></li>
-</ul>
-</div>
-<div>
-<h4 class="font-headline text-xs font-bold uppercase tracking-widest mb-6 text-on-surface">Destinations</h4>
-<ul class="space-y-4">
-<li><a class="font-inter text-xs uppercase tracking-widest dark:text-zinc-500 hover:dark:text-zinc-100 transition-colors" href="#">Tashkent</a></li>
-<li><a class="font-inter text-xs uppercase tracking-widest dark:text-zinc-500 hover:dark:text-zinc-100 transition-colors" href="#">Samarkand</a></li>
-<li><a class="font-inter text-xs uppercase tracking-widest dark:text-zinc-500 hover:dark:text-zinc-100 transition-colors" href="#">Bukhara</a></li>
-</ul>
-</div>
-<div>
-<h4 class="font-headline text-xs font-bold uppercase tracking-widest mb-6 text-on-surface">Contact</h4>
-<ul class="space-y-4">
-<li><a class="font-inter text-xs uppercase tracking-widest dark:text-zinc-500 hover:dark:text-zinc-100 transition-colors" href="#">Support</a></li>
-<li><a class="font-inter text-xs uppercase tracking-widest dark:text-zinc-100 font-semibold" href="#">UZS</a></li>
-</ul>
-</div>
-</div>
-</footer>
-<script src="../js/config.js"></script>
-<script src="../js/animations.js"></script>
-<script src="../js/forms.js"></script>
-</body></html>
+
+<script>
+    function goToStep(step) {
+        document.querySelectorAll('#step-3, #step-4, #step-5').forEach(s => s.classList.add('hidden'));
+        document.getElementById('step-' + step).classList.remove('hidden');
+        window.scrollTo(0,0);
+        if (step === 6) window.location.href = 'payment.html';
+    }
+
+    function selectDay(btn, day) {
+        btn.classList.toggle('selected');
+        recalc();
+    }
+
+    function recalc() {
+        const base = 9000000;
+        let extra = 0;
+        const checks = document.querySelectorAll('input[type="checkbox"]:checked');
+        checks.forEach(c => {
+            const label = c.closest('label');
+            const priceText = label.querySelector('span:last-child').textContent;
+            extra += parseInt(priceText.replace(/\D/g, ''));
+        });
+        document.getElementById('totalPrice').textContent = (base + extra).toLocaleString() + ' UZS';
+    }
+</script>
+</body>
+</html>

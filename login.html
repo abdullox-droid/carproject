@@ -486,6 +486,7 @@
             <div class="dot" id="dot2"></div>
             <div class="dot" id="dot3"></div>
             <div class="dot" id="dot4"></div>
+            <div class="dot" id="dot5"></div>
         </div>
 
         <!-- STEP 1: Welcome -->
@@ -585,8 +586,33 @@
             <button class="btn btn-ghost" onclick="goBack('step2')">← Изменить юзернейм</button>
         </div>
 
-        <!-- STEP 4: Success -->
+        <!-- STEP 4: Role Selection -->
         <div class="step" id="step4">
+            <div class="step-badge">
+                <!-- Briefcase/Car icon -->
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+            </div>
+            <h2>Что вы хотите?</h2>
+            <p class="subtitle">Выберите вашу основную цель на платформе</p>
+
+            <div style="display: grid; gap: 16px; margin-bottom: 24px;">
+                <button class="btn btn-ghost" style="height: auto; padding: 20px; flex-direction: column; text-align: left; align-items: flex-start;" onclick="selectRole('renter')">
+                    <div style="font-weight: 800; font-size: 16px; color: var(--text); margin-bottom: 4px;">Хочу арендовать</div>
+                    <div style="font-weight: 400; font-size: 12px; color: var(--text-muted);">Ищу машину для поездок</div>
+                </button>
+                
+                <button class="btn btn-ghost" style="height: auto; padding: 20px; flex-direction: column; text-align: left; align-items: flex-start;" onclick="selectRole('owner')">
+                    <div style="font-weight: 800; font-size: 16px; color: var(--text); margin-bottom: 4px;">Хочу сдать в аренду</div>
+                    <div style="font-weight: 400; font-size: 12px; color: var(--text-muted);">Хочу зарабатывать на своей машине</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- STEP 5: Success -->
+        <div class="step" id="step5">
             <div class="success-ring">
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="20 6 9 17 4 12"/>
@@ -618,7 +644,8 @@
             document.getElementById('dot1'),
             document.getElementById('dot2'),
             document.getElementById('dot3'),
-            document.getElementById('dot4')
+            document.getElementById('dot4'),
+            document.getElementById('dot5')
         ];
 
         function showStep(stepId) {
@@ -691,14 +718,20 @@
                 return;
             }
 
+            showStep('step4');
+        }
+
+        function selectRole(role) {
+            state.role = role;
             localStorage.setItem('carlink_user', JSON.stringify({
                 username: state.username,
+                role: state.role,
                 loginTime: new Date().toISOString(),
                 authenticated: true
             }));
 
-            showStep('step4');
-            setTimeout(() => { window.location.href = './pages/home.html'; }, 2500);
+            showStep('step5');
+            setTimeout(() => { window.location.href = './pages/profile.html'; }, 2500);
         }
 
         function resendCode() {

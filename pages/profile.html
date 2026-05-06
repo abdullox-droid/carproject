@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Личный кабинет - CarLink</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#e2e2e2",
+                        "on-surface-variant": "#acabaa",
+                        "primary-container": "#454747",
+                        "tertiary-fixed": "#f4f3f3",
+                        "secondary-fixed": "#e3e2e2",
+                        "error-dim": "#b95463",
+                        "tertiary-fixed-dim": "#e6e5e5",
+                        "inverse-primary": "#5e5f60",
+                        "on-tertiary-container": "#565757",
+                        "on-surface": "#e7e5e4",
+                        "error": "#ec7c8a",
+                        "on-secondary-fixed": "#3e3f40",
+                        "primary": "#c6c6c7",
+                        "on-error-container": "#ff97a3",
+                        "surface-dim": "#0e0e0e",
+                        "surface-container-low": "#131313",
+                        "on-primary": "#3f4041",
+                        "inverse-on-surface": "#565554",
+                        "on-primary-container": "#d0d0d0",
+                        "tertiary": "#faf9f9",
+                        "secondary-fixed-dim": "#d5d4d4",
+                        "secondary-container": "#3a3c3c",
+                        "secondary": "#9e9e9e",
+                        "on-secondary-fixed-variant": "#5b5c5c",
+                        "primary-dim": "#b8b9b9",
+                        "on-primary-fixed": "#3e4040",
+                        "on-tertiary-fixed-variant": "#656666",
+                        "surface-variant": "#252626",
+                        "surface-bright": "#2c2c2c",
+                        "surface-container": "#191a1a",
+                        "on-tertiary": "#5e5f5f",
+                        "on-error": "#490013",
+                        "tertiary-container": "#ebebeb",
+                        "inverse-surface": "#fcf8f8",
+                        "surface-container-highest": "#252626",
+                        "surface-container-high": "#1f2020",
+                        "on-tertiary-fixed": "#484a4a",
+                        "surface-tint": "#c6c6c7",
+                        "surface": "#0e0e0e",
+                        "primary-fixed-dim": "#d4d4d4",
+                        "error-container": "#7f2737",
+                        "background": "#0e0e0e",
+                        "on-primary-fixed-variant": "#5a5c5c",
+                        "outline": "#767575",
+                        "surface-container-lowest": "#000000",
+                        "secondary-dim": "#9e9e9e",
+                        "on-background": "#e7e5e4",
+                        "tertiary-dim": "#ebebeb",
+                        "on-secondary-container": "#bfbfbf",
+                        "on-secondary": "#1f2021",
+                        "outline-variant": "#484848"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { background-color: #0e0e0e; color: #e7e5e4; }
+        ::-webkit-scrollbar { display: none; }
+        .tab-btn.active { background-color: #c6c6c7; color: #0a0a0a; }
+    </style>
+</head>
+<body class="font-body selection:bg-primary selection:text-on-primary min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-white/5">
+    <div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
+        <a href="../index.html" class="text-2xl font-black tracking-tighter dark:text-zinc-100 font-headline">CarLink</a>
+        <div class="hidden md:flex items-center gap-10">
+            <a class="font-manrope tracking-tight text-sm uppercase dark:text-zinc-500 hover:dark:text-zinc-100 transition-all duration-300" href="catalog.html">Каталог</a>
+            <a class="font-manrope tracking-tight text-sm uppercase dark:text-red-400 hover:dark:text-red-300 transition-all duration-300 cursor-pointer" onclick="logout()">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<main class="flex-1 w-full max-w-screen-xl mx-auto px-8 pt-32 pb-16">
+    
+    <!-- Profile Header -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        <div class="lg:col-span-2 bg-surface-container-low p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden flex flex-col md:flex-row items-center gap-8 shadow-2xl">
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="w-32 h-32 rounded-3xl bg-surface-container-high border-2 border-primary/30 flex items-center justify-center text-5xl font-headline font-black uppercase text-primary shadow-inner" id="avatarLetter">U</div>
+            <div class="text-center md:text-left">
+                <div class="flex items-center gap-4 mb-2 justify-center md:justify-start">
+                    <h1 class="text-4xl font-headline font-black text-on-surface" id="profileName">@username</h1>
+                    <span class="px-3 py-1 bg-primary text-black rounded-lg text-[10px] font-black uppercase tracking-widest" id="profileRole">Арендатор</span>
+                </div>
+                <p class="text-on-surface-variant font-bold text-xs uppercase tracking-widest mb-6">С нами с апреля 2024</p>
+                <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                    <div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl border border-white/5">
+                        <span class="material-symbols-outlined text-sm text-primary">verified_user</span>
+                        <span class="text-[10px] font-black uppercase tracking-widest">Личность подтверждена</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl border border-white/5">
+                        <span class="material-symbols-outlined text-sm text-yellow-500">star</span>
+                        <span class="text-[10px] font-black uppercase tracking-widest">Рейтинг 5.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bonus Program Widget -->
+        <div class="bg-gradient-to-br from-zinc-800 to-zinc-950 p-10 rounded-[2.5rem] border border-white/10 shadow-2xl flex flex-col justify-between">
+            <div>
+                <h3 class="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant mb-6">Бонусная программа</h3>
+                <div class="text-5xl font-headline font-black text-primary mb-2">1,250</div>
+                <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Баллов накоплено</p>
+            </div>
+            <button class="w-full py-4 border border-primary/30 text-primary rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-black transition-all">Использовать баллы</button>
+        </div>
+    </div>
+
+    <!-- Owner Stats (Only if role is owner) -->
+    <div id="ownerStats" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-surface-container-low p-8 rounded-3xl border border-white/5">
+            <h4 class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">Доход за месяц</h4>
+            <p class="text-3xl font-headline font-black text-on-surface">15,400,000 UZS</p>
+            <p class="text-xs text-green-400 mt-2">+12% к прошлому месяцу</p>
+        </div>
+        <div class="bg-surface-container-low p-8 rounded-3xl border border-white/5">
+            <h4 class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">Активные авто</h4>
+            <p class="text-3xl font-headline font-black text-on-surface">3</p>
+            <p class="text-xs text-on-surface-variant mt-2">Занято: 2 (66%)</p>
+        </div>
+        <div class="bg-surface-container-low p-8 rounded-3xl border border-white/5">
+            <h4 class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">Предстоящие брони</h4>
+            <p class="text-3xl font-headline font-black text-on-surface">8</p>
+            <p class="text-xs text-primary mt-2">Ближайшее через 4 часа</p>
+        </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="flex gap-4 mb-8 border-b border-white/5 pb-6 overflow-x-auto">
+        <button onclick="showSection('rentals')" id="tab-rentals" class="tab-btn active px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Мои аренды</button>
+        <button onclick="showSection('favorites')" id="tab-favorites" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Избранное</button>
+        <button onclick="showSection('owned')" id="tab-owned" class="tab-btn hidden px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Мой флот</button>
+        <button onclick="showSection('subscriptions')" id="tab-subscriptions" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Подписки</button>
+        <button onclick="showSection('docs')" id="tab-docs" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Документы</button>
+    </div>
+
+    <!-- Sections Content -->
+    <div id="section-rentals" class="section active space-y-6">
+        <div id="rentalsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Rendered by JS -->
+        </div>
+    </div>
+
+    <div id="section-favorites" class="section hidden space-y-6">
+        <div id="favoritesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Rendered by JS -->
+        </div>
+    </div>
+
+    <div id="section-owned" class="section hidden space-y-8">
+        <div class="flex justify-between items-center">
+             <h2 class="text-2xl font-headline font-black">Управление авто</h2>
+             <button onclick="openRentOutModal()" class="bg-primary text-black px-6 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] active:scale-95 transition-all">Добавить авто</button>
+        </div>
+        <div id="ownedList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Rendered by JS -->
+        </div>
+    </div>
+
+    <div id="section-subscriptions" class="section hidden space-y-8">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-gradient-to-br from-yellow-500/20 to-amber-900/40 p-12 rounded-[3rem] border border-yellow-500/30 relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-yellow-500/20 rounded-full blur-3xl"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="material-symbols-outlined text-4xl text-yellow-500">military_tech</span>
+                        <h2 class="text-4xl font-headline font-black text-white">Super Racer</h2>
+                    </div>
+                    <p class="text-lg text-on-surface-variant mb-10 leading-relaxed">Эксклюзивный статус для истинных ценителей скорости. Получите полный безлимит и уникальные привилегии.</p>
+                    
+                    <ul class="space-y-4 mb-12">
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-yellow-500 text-sm">check_circle</span>
+                            <span class="text-sm font-bold uppercase tracking-wider">2 часа БЕСПЛАТНО каждый день на ЛЮБОМ авто</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-yellow-500 text-sm">check_circle</span>
+                            <span class="text-sm font-bold uppercase tracking-wider">Уникальная золотая тема оформления</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-yellow-500 text-sm">check_circle</span>
+                            <span class="text-sm font-bold uppercase tracking-wider">Приоритетная подача и поддержка 24/7</span>
+                        </li>
+                    </ul>
+
+                    <div class="flex items-end justify-between gap-8">
+                        <div>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1">Стоимость подписки</p>
+                            <p class="text-4xl font-headline font-black text-white">5,000,000 <span class="text-lg text-yellow-500">UZS / мес</span></p>
+                        </div>
+                        <button onclick="buySuperRacer()" id="buySuperRacerBtn" class="bg-yellow-500 text-black px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-yellow-400 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/20">Активировать</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="activeSubscriptionMsg" class="hidden mt-8 p-6 bg-white/5 border border-white/10 rounded-3xl text-center">
+                <p class="text-sm font-bold uppercase tracking-widest text-yellow-500">✨ Подписка Super Racer активна ✨</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-docs" class="section hidden">
+        <div class="bg-surface-container-low p-10 rounded-[2.5rem] border border-white/5 text-center max-w-2xl mx-auto">
+            <span class="material-symbols-outlined text-7xl text-primary mb-6">description</span>
+            <h3 class="text-2xl font-headline font-black mb-4">Верификация документов</h3>
+            <p class="text-on-surface-variant mb-10">Для аренды премиальных автомобилей необходимо загрузить водительское удостоверение и паспорт.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button class="bg-white/5 border border-white/10 p-6 rounded-2xl text-center hover:border-primary transition-all">
+                    <span class="material-symbols-outlined mb-2">id_card</span>
+                    <p class="text-[10px] font-black uppercase tracking-widest">Паспорт (Загружен)</p>
+                </button>
+                <button class="bg-white/5 border border-white/10 p-6 rounded-2xl text-center hover:border-primary transition-all">
+                    <span class="material-symbols-outlined mb-2">directions_car</span>
+                    <p class="text-[10px] font-black uppercase tracking-widest">Права (Требуется обновление)</p>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Modal: Rent out car -->
+<div id="rentOutModal" class="fixed inset-0 z-[100] hidden flex flex-col items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeRentOutModal()"></div>
+    <div class="relative bg-surface-container-low border border-white/10 rounded-[3rem] p-12 max-w-2xl w-full shadow-2xl">
+        <h3 class="text-3xl font-headline font-black mb-8">Добавить авто в флот</h3>
+        <form id="rentOutForm" class="grid grid-cols-2 gap-6">
+            <div class="col-span-2">
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant block mb-2">Марка и модель</label>
+                <input type="text" name="carModel" required placeholder="Напр: Lamborghini Urus" class="w-full bg-surface-variant border-none rounded-2xl p-4 text-sm focus:ring-primary">
+            </div>
+            <div>
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant block mb-2">Год</label>
+                <input type="number" name="carYear" required placeholder="2024" class="w-full bg-surface-variant border-none rounded-2xl p-4 text-sm focus:ring-primary">
+            </div>
+            <div>
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant block mb-2">Цена (UZS/день)</label>
+                <input type="number" name="carPrice" required placeholder="10000000" class="w-full bg-surface-variant border-none rounded-2xl p-4 text-sm focus:ring-primary">
+            </div>
+            <div class="col-span-2">
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant block mb-2">Фото (URL)</label>
+                <input type="url" name="carImage" required placeholder="https://..." class="w-full bg-surface-variant border-none rounded-2xl p-4 text-sm focus:ring-primary">
+            </div>
+            <button type="submit" class="col-span-2 bg-primary text-black py-5 rounded-[2rem] font-black uppercase tracking-[0.2em] text-xs mt-4 active:scale-95 transition-all">Опубликовать</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const user = JSON.parse(localStorage.getItem('carlink_user'));
+    if (!user) window.location.href = '../login.html';
+
+    document.getElementById('profileName').textContent = '@' + user.username;
+    document.getElementById('avatarLetter').textContent = user.username.charAt(0).toUpperCase();
+    document.getElementById('profileRole').textContent = user.role === 'owner' ? 'Владелец' : 'Арендатор';
+
+    if (user.role === 'owner') {
+        document.getElementById('ownerStats').classList.remove('hidden');
+        document.getElementById('tab-owned').classList.remove('hidden');
+    }
+
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+        document.getElementById('section-' + id).classList.remove('hidden');
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + id).classList.add('active');
+        if (id === 'rentals') loadRentals();
+        if (id === 'favorites') loadFavorites();
+        if (id === 'owned') loadOwned();
+        if (id === 'subscriptions') checkSubscriptionStatus();
+    }
+
+    function checkSubscriptionStatus() {
+        const user = JSON.parse(localStorage.getItem('carlink_user'));
+        if (user && user.is_super_racer) {
+            document.getElementById('buySuperRacerBtn').style.display = 'none';
+            document.getElementById('activeSubscriptionMsg').classList.remove('hidden');
+        }
+    }
+
+    function loadRentals() {
+        const list = document.getElementById('rentalsList');
+        list.innerHTML = `
+            <div class="bg-surface-container-highest p-8 rounded-3xl border border-white/5 relative overflow-hidden group">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Активно</p>
+                        <h4 class="text-xl font-black">Porsche Taycan</h4>
+                    </div>
+                    <span class="material-symbols-outlined text-primary">car_rental</span>
+                </div>
+                <div class="space-y-3 mb-8">
+                    <div class="flex items-center gap-3 text-xs text-on-surface-variant">
+                        <span class="material-symbols-outlined text-sm">calendar_today</span>
+                        <span>04.05.2024 - 06.05.2024</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-xs text-on-surface-variant">
+                        <span class="material-symbols-outlined text-sm">location_on</span>
+                        <span>Аэропорт (Терминал 2)</span>
+                    </div>
+                </div>
+                <button class="w-full py-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">Управление бронью</button>
+            </div>
+        `;
+    }
+
+    function loadFavorites() {
+        const favIds = JSON.parse(localStorage.getItem('carlink_favorites') || '[]');
+        const list = document.getElementById('favoritesList');
+        if (favIds.length === 0) {
+            list.innerHTML = `<p class="col-span-full text-center text-on-surface-variant py-20 uppercase font-black tracking-widest text-xs">Список пуст</p>`;
+            return;
+        }
+        list.innerHTML = `<p class="col-span-full text-center py-20 text-xs font-black uppercase tracking-widest">У вас ${favIds.length} авто в избранном. Перейдите в каталог, чтобы увидеть их.</p>`;
+    }
+
+    function loadOwned() {
+        const list = document.getElementById('ownedList');
+        const owned = JSON.parse(localStorage.getItem('carlink_owned') || []);
+        list.innerHTML = owned.map(car => `
+            <div class="bg-surface-container-low rounded-3xl overflow-hidden border border-white/5">
+                <img src="${car.image}" class="w-full h-48 object-cover"/>
+                <div class="p-6">
+                    <h4 class="text-lg font-black mb-2">${car.model}</h4>
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-xs font-bold text-on-surface-variant">${car.year} год</span>
+                        <span class="text-primary font-black">${car.price.toLocaleString()} UZS</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button class="py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest">График</button>
+                        <button class="py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest">Редактировать</button>
+                    </div>
+                </div>
+            </div>
+        `).join('') || `<p class="col-span-full text-center py-20 text-xs font-black uppercase tracking-widest text-on-surface-variant">Нет добавленных авто</p>`;
+    }
+
+    function openRentOutModal() { document.getElementById('rentOutModal').classList.remove('hidden'); }
+    function closeRentOutModal() { document.getElementById('rentOutModal').classList.add('hidden'); }
+
+    document.getElementById('rentOutForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const newCar = {
+            model: formData.get('carModel'),
+            year: formData.get('carYear'),
+            price: parseInt(formData.get('carPrice')),
+            image: formData.get('carImage')
+        };
+        const owned = JSON.parse(localStorage.getItem('carlink_owned') || '[]');
+        owned.push(newCar);
+        localStorage.setItem('carlink_owned', JSON.stringify(owned));
+        closeRentOutModal();
+        showSection('owned');
+    });
+
+    function logout() { localStorage.removeItem('carlink_user'); window.location.href = '../login.html'; }
+
+    loadRentals();
+</script>
+
+<script src="../js/config.js"></script>
+<script src="../js/animations.js"></script>
+<script src="../js/forms.js"></script>
+</body>
+</html>

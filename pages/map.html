@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Карта авто — CarLink</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { background-color: #0e0e0e; color: #e7e5e4; }
+        ::-webkit-scrollbar { display: none; }
+        #map { height: 500px; border-radius: 2rem; }
+        .car-card.active { border-color: #c6c6c7; background-color: rgba(255,255,255,0.05); }
+        @keyframes carPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.7); }
+            50% { transform: scale(1.15); box-shadow: 0 0 25px 10px rgba(250, 204, 21, 0.35); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+        }
+        .car-marker {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #facc15, #f59e0b);
+            border-radius: 50%;
+            border: 4px solid #0e0e0e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: carPulse 2.5s infinite ease-in-out;
+            cursor: pointer;
+        }
+        .car-marker svg {
+            width: 26px;
+            height: 26px;
+            fill: #0e0e0e;
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary selection:text-on-primary">
+
+<nav class="fixed top-0 w-full z-50 dark:bg-zinc-950/70 backdrop-blur-xl border-b border-white/5">
+    <div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
+        <a href="../index.html" class="text-2xl font-black tracking-tighter dark:text-zinc-100 font-headline">CarLink</a>
+        <div class="flex items-center gap-4">
+            <a href="catalog.html" class="bg-white/5 px-6 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border border-white/10">Список</a>
+        </div>
+    </div>
+</nav>
+
+<main class="pt-24 px-8 max-w-screen-2xl mx-auto flex flex-col gap-8 pb-16">
+    <!-- Geolocation Banner -->
+    <div id="geoBanner" class="bg-primary/10 border border-primary/20 p-6 rounded-3xl flex items-center justify-between mb-2">
+        <div class="flex items-center gap-6">
+            <div class="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-black">
+                <span class="material-symbols-outlined font-black">my_location</span>
+            </div>
+            <div>
+                <h3 class="text-sm font-black uppercase tracking-widest text-primary">Автоматическое определение локации</h3>
+                <p class="text-xs text-on-surface-variant" id="locStatus">Определяем ваше местоположение для поиска ближайших авто...</p>
+            </div>
+        </div>
+        <button onclick="getUserLocation()" class="text-[10px] font-black uppercase tracking-widest bg-white/5 px-6 py-3 rounded-xl border border-white/10 hover:bg-primary hover:text-black transition-all">Обновить</button>
+    </div>
+
+    <!-- Map Container -->
+    <div class="relative group">
+        <div id="map" class="shadow-2xl border border-white/5"></div>
+        <div class="absolute top-6 left-6 z-[1000] bg-zinc-950/80 backdrop-blur-md p-4 rounded-2xl border border-white/10 flex items-center gap-4">
+            <div class="w-3 h-3 rounded-full bg-primary animate-pulse"></div>
+            <p class="text-xs font-black uppercase tracking-widest" id="currentAddress">Локация: Ташкент, Узбекистан</p>
+        </div>
+    </div>
+
+    <!-- List sorted by distance -->
+    <div>
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-headline font-black">Доступные машины рядом</h2>
+            <div class="flex items-center gap-2 text-on-surface-variant">
+                <span class="material-symbols-outlined text-sm">radar</span>
+                <span class="text-[10px] font-black uppercase tracking-widest" id="nearestCarText">Ищем ближайший вариант...</span>
+            </div>
+        </div>
+        
+        <div id="distanceList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Rendered by JS -->
+        </div>
+    </div>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    const cars = [
+        { id: 1, name: "Tesla Model 3", price: 150000, lat: 41.311081, lng: 69.240562, img: "https://images.unsplash.com/photo-1536700503339-1e4b06520771?auto=format&fit=crop&q=80&w=400" },
+        { id: 2, name: "Porsche Taycan", price: 450000, lat: 41.315081, lng: 69.245562, img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=400" },
+        { id: 3, name: "BMW M5", price: 380000, lat: 41.305081, lng: 69.235562, img: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=400" },
+        { id: 4, name: "Audi RS6", price: 420000, lat: 41.321081, lng: 69.250562, img: "https://images.unsplash.com/photo-1606152424101-ad2f9131952e?auto=format&fit=crop&q=80&w=400" },
+        { id: 5, name: "Zenith Solara", price: 2000000, lat: 41.330000, lng: 69.260000, img: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=400" },
+        { id: 6, name: "Aether Levitas", price: 5000000, lat: 41.290000, lng: 69.220000, img: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=400" },
+        { id: 7, name: "Onyx Shadow", price: 3500000, lat: 41.340000, lng: 69.280000, img: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&q=80&w=400" },
+        { id: 8, name: "Titan Behemoth", price: 1800000, lat: 41.280000, lng: 69.210000, img: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=400" },
+        { id: 9, name: "Mercedes S-Class", price: 3200000, lat: 41.298500, lng: 69.255000, img: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=400" },
+        { id: 10, name: "Range Rover Sport", price: 2800000, lat: 41.325000, lng: 69.228000, img: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=400" },
+        { id: 11, name: "Lamborghini Urus", price: 7500000, lat: 41.318500, lng: 69.267000, img: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&q=80&w=400" },
+        { id: 12, name: "Chevrolet Malibu", price: 850000, lat: 41.303000, lng: 69.248000, img: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=400" },
+        { id: 13, name: "Genesis G80", price: 2100000, lat: 41.335000, lng: 69.235000, img: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=400" },
+        { id: 14, name: "Kia K5", price: 650000, lat: 41.292000, lng: 69.258000, img: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=400" },
+        { id: 15, name: "Lexus RX 350", price: 3000000, lat: 41.308000, lng: 69.215000, img: "https://images.unsplash.com/photo-1606152424101-ad2f9131952e?auto=format&fit=crop&q=80&w=400" },
+        { id: 16, name: "Toyota Camry", price: 500000, lat: 41.322000, lng: 69.272000, img: "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=400" }
+    ];
+
+    let userLat = 41.311081;
+    let userLng = 69.240562;
+    let userMarker;
+
+    const map = L.map('map').setView([userLat, userLng], 14);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+
+    const carSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>`;
+
+    const carIcon = L.divIcon({
+        className: 'custom-div-icon',
+        html: `<div class="car-marker">${carSvg}</div>`,
+        iconSize: [52, 52],
+        iconAnchor: [26, 26]
+    });
+
+    const userIcon = L.divIcon({
+        className: 'user-icon',
+        html: `<div class="w-10 h-10 bg-white rounded-full border-4 border-primary flex items-center justify-center shadow-2xl animate-pulse"><span class="material-symbols-outlined text-black text-sm">person</span></div>`,
+        iconSize: [40, 40],
+        iconAnchor: [20, 20]
+    });
+
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const dLat = (lat2-lat1) * Math.PI / 180;
+        const dLon = (lon2-lon1) * Math.PI / 180;
+        const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
+    }
+
+    function getUserLocation() {
+        if ("geolocation" in navigator) {
+            document.getElementById('locStatus').textContent = "Запрос доступа к геолокации...";
+            navigator.geolocation.getCurrentPosition(position => {
+                userLat = position.coords.latitude;
+                userLng = position.coords.longitude;
+                
+                document.getElementById('locStatus').textContent = "Локация определена!";
+                document.getElementById('currentAddress').textContent = `Ваша локация: ${userLat.toFixed(4)}, ${userLng.toFixed(4)}`;
+                
+                if (userMarker) map.removeLayer(userMarker);
+                userMarker = L.marker([userLat, userLng], { icon: userIcon }).addTo(map).bindPopup("Вы здесь");
+                map.setView([userLat, userLng], 14);
+                
+                renderList();
+            }, error => {
+                document.getElementById('locStatus').textContent = "Доступ запрещен. Используем центр Ташкента.";
+                renderList();
+            });
+        }
+    }
+
+    function renderList() {
+        const list = document.getElementById('distanceList');
+        const sortedCars = cars.map(car => ({
+            ...car,
+            distance: calculateDistance(userLat, userLng, car.lat, car.lng)
+        })).sort((a, b) => a.distance - b.distance);
+
+        const nearest = sortedCars[0];
+        document.getElementById('nearestCarText').textContent = `Ближайшее авто: ${nearest.name} (${nearest.distance.toFixed(1)} км)`;
+
+        list.innerHTML = sortedCars.map(car => `
+            <div class="car-card bg-surface-container-low p-6 rounded-3xl border border-white/5 hover:border-primary/30 transition-all group cursor-pointer">
+                <div class="aspect-video rounded-2xl overflow-hidden mb-4">
+                    <img src="${car.img}" class="w-full h-full object-cover group-hover:scale-110 transition-all duration-500"/>
+                </div>
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h4 class="font-headline font-black text-lg">${car.name}</h4>
+                        <p class="text-xs text-primary font-black uppercase tracking-widest">${car.distance.toFixed(1)} км от вас</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-lg font-black">${car.price.toLocaleString()}</p>
+                        <p class="text-[10px] text-on-surface-variant font-bold uppercase">UZS/час</p>
+                    </div>
+                </div>
+                <a href="car-details.html?id=${car.id}" class="block w-full py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-center hover:bg-primary hover:text-black transition-all">Забронировать</a>
+            </div>
+        `).join('');
+
+        // Add markers
+        sortedCars.forEach(car => {
+            L.marker([car.lat, car.lng], { icon: carIcon }).addTo(map)
+             .bindPopup(`<div class="text-black p-2 font-bold">${car.name}<br>${car.price} UZS/час</div>`);
+        });
+    }
+
+    getUserLocation();
+</script>
+</body>
+</html>

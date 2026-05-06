@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Бронирование подтверждено — CarLink</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Manrope:wght@600;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#c6c6c7",
+                        "surface-dim": "#0e0e0e",
+                        "surface-container-low": "#131313",
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { background-color: #0e0e0e; color: #e7e5e4; }
+        ::-webkit-scrollbar { display: none; }
+        .timeline-step.active .dot { background-color: #c6c6c7; box-shadow: 0 0 20px rgba(198,198,199,0.5); }
+        .timeline-step.active .line { background-color: #c6c6c7; }
+    </style>
+</head>
+<body class="font-body selection:bg-primary selection:text-on-primary min-h-screen flex items-center justify-center p-8">
+
+<div class="w-full max-w-2xl bg-surface-container-low border border-white/5 rounded-[3rem] p-12 text-center shadow-2xl relative overflow-hidden">
+    <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+    
+    <div class="mb-12">
+        <div class="w-24 h-24 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="material-symbols-outlined text-5xl">check_circle</span>
+        </div>
+        <h1 class="text-4xl font-headline font-black mb-4">Успешно!</h1>
+        <p class="text-on-surface-variant max-w-sm mx-auto">Ваше бронирование <b>#CL-8842</b> подтверждено. Автомобиль будет ждать вас в указанное время.</p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="mb-16 space-y-8 max-w-xs mx-auto text-left">
+        <div class="timeline-step active flex items-start gap-6">
+            <div class="flex flex-col items-center">
+                <div class="dot w-3 h-3 rounded-full bg-primary mt-1.5"></div>
+                <div class="line w-0.5 h-12 bg-primary"></div>
+            </div>
+            <div>
+                <p class="text-sm font-black uppercase tracking-widest text-on-surface">Оплата получена</p>
+                <p class="text-[10px] text-on-surface-variant font-bold">Сегодня, 09:42</p>
+            </div>
+        </div>
+        <div class="timeline-step active flex items-start gap-6">
+            <div class="flex flex-col items-center">
+                <div class="dot w-3 h-3 rounded-full bg-primary mt-1.5 animate-pulse"></div>
+                <div class="line w-0.5 h-12 bg-white/10"></div>
+            </div>
+            <div>
+                <p class="text-sm font-black uppercase tracking-widest text-on-surface">Подготовка авто</p>
+                <p class="text-[10px] text-on-surface-variant font-bold">В процессе</p>
+            </div>
+        </div>
+        <div class="timeline-step flex items-start gap-6">
+            <div class="flex flex-col items-center">
+                <div class="dot w-3 h-3 rounded-full bg-white/10 mt-1.5"></div>
+            </div>
+            <div>
+                <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">Выдача автомобиля</p>
+                <p class="text-[10px] text-on-surface-variant font-bold">Завтра, 10:00</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="map.html" class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">
+            <span class="material-symbols-outlined text-sm">map</span>
+            Открыть карту
+        </a>
+        <button class="flex items-center justify-center gap-3 bg-primary text-black py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:shadow-[0_0_30px_rgba(198,198,199,0.3)] transition-all">
+            <span class="material-symbols-outlined text-sm">call</span>
+            Связаться
+        </button>
+    </div>
+    
+    <a href="profile.html" class="block mt-10 text-[10px] font-black uppercase tracking-widest text-on-surface-variant hover:text-on-surface">Перейти в личный кабинет</a>
+</div>
+
+</body>
+</html>
