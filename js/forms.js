@@ -59,12 +59,25 @@ window.sendMessage = function() {
         <div class="bg-primary/20 p-3 rounded-2xl rounded-br-none max-w-[80%] ml-auto text-on-surface">${msg}</div>
     `;
     input.value = '';
+
+    // Save support message to localStorage for admin panel
+    const user = JSON.parse(localStorage.getItem('carlink_user') || '{}');
+    const supportMessages = JSON.parse(localStorage.getItem('carlink_support_messages') || '[]');
+    supportMessages.push({
+        id: Date.now(),
+        user: user.username || 'Гость',
+        message: msg,
+        timestamp: new Date().toISOString(),
+        status: 'new',
+        page: window.location.pathname
+    });
+    localStorage.setItem('carlink_support_messages', JSON.stringify(supportMessages));
     
     setTimeout(() => {
         messages.innerHTML += `
             <div class="bg-white/5 p-3 rounded-2xl rounded-bl-none max-w-[80%]">Ваш запрос принят! Оператор ответит в ближайшее время.</div>
-            <script>document.getElementById('chatMessages').scrollTop = 9999;</script>
         `;
+        document.getElementById('chatMessages').scrollTop = 9999;
     }, 1000);
 }
 

@@ -48,6 +48,9 @@
         <button onclick="showSection('finances')" id="nav-finances" class="nav-link flex items-center gap-4 text-sm font-bold text-on-surface-variant hover:text-on-surface p-4 rounded-2xl transition-all">
             <span class="material-symbols-outlined">payments</span> Финансы
         </button>
+        <button onclick="showSection('support')" id="nav-support" class="nav-link flex items-center gap-4 text-sm font-bold text-on-surface-variant hover:text-on-surface p-4 rounded-2xl transition-all">
+            <span class="material-symbols-outlined">support_agent</span> Поддержка
+        </button>
         <button onclick="showSection('settings')" id="nav-settings" class="nav-link flex items-center gap-4 text-sm font-bold text-on-surface-variant hover:text-on-surface p-4 rounded-2xl transition-all">
             <span class="material-symbols-outlined">settings</span> Настройки
         </button>
@@ -251,6 +254,27 @@
         </div>
     </div>
 
+    <!-- Section: Support -->
+    <div id="support" class="section space-y-8">
+        <h3 class="text-2xl font-headline font-black uppercase tracking-widest">Сообщения в поддержку</h3>
+        <div class="bg-surface-container-low rounded-3xl border border-white/5 overflow-hidden">
+             <table class="w-full text-left border-collapse">
+                <thead class="bg-white/5 text-[10px] uppercase font-black tracking-widest text-on-surface-variant">
+                    <tr>
+                        <th class="p-6">Пользователь / Время</th>
+                        <th class="p-6">Страница</th>
+                        <th class="p-6">Сообщение</th>
+                        <th class="p-6">Статус</th>
+                        <th class="p-6">Действие</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5" id="supportMessagesList">
+                    <!-- Заполняется через JS -->
+                </tbody>
+             </table>
+        </div>
+    </div>
+
     <!-- Section: Settings -->
     <div id="settings" class="section space-y-12 max-w-2xl">
         <div class="space-y-6">
@@ -284,9 +308,55 @@
             'cars': 'Автопарк и Модерация',
             'users': 'Управление пользователями',
             'finances': 'Финансовый учет',
+            'support': 'Поддержка клиентов',
             'settings': 'Настройки системы'
         };
         document.getElementById('sectionTitle').textContent = titles[id];
+
+        if (id === 'support') {
+            loadSupportMessages();
+        }
+    }
+
+    function loadSupportMessages() {
+        const messages = JSON.parse(localStorage.getItem('carlink_support_messages') || '[]');
+        const list = document.getElementById('supportMessagesList');
+        
+        if (messages.length === 0) {
+            list.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-on-surface-variant text-sm font-bold uppercase tracking-widest">Нет новых сообщений</td></tr>`;
+            return;
+        }
+
+        list.innerHTML = messages.sort((a,b) => b.id - a.id).map(msg => `
+            <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-6">
+                    <p class="font-bold">${msg.user}</p>
+                    <p class="text-[10px] text-on-surface-variant uppercase">${new Date(msg.timestamp).toLocaleString()}</p>
+                </td>
+                <td class="p-6 text-xs text-primary font-mono">${msg.page}</td>
+                <td class="p-6 text-sm max-w-xs truncate">${msg.message}</td>
+                <td class="p-6">
+                    <span class="${msg.status === 'new' ? 'bg-red-500/20 text-red-400' : 'bg-green-500/20 text-green-400'} px-3 py-1 rounded text-[10px] font-black uppercase">
+                        ${msg.status === 'new' ? 'Новое' : 'Отвечено'}
+                    </span>
+                </td>
+                <td class="p-6 flex gap-2">
+                    <button onclick="replySupport(${msg.id})" class="p-2 bg-primary/20 text-primary rounded-lg hover:bg-primary hover:text-black transition-all"><span class="material-symbols-outlined text-sm">reply</span></button>
+                    <button onclick="action('support', 'approve')" class="p-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500 hover:text-black transition-all"><span class="material-symbols-outlined text-sm">done_all</span></button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function replySupport(id) {
+        alert('Открытие чата с пользователем (в разработке)');
+        const messages = JSON.parse(localStorage.getItem('carlink_support_messages') || '[]');
+        const idx = messages.findIndex(m => m.id === id);
+        if (idx !== -1) {
+            messages[idx].status = 'answered';
+            localStorage.setItem('carlink_support_messages', JSON.stringify(messages));
+            loadSupportMessages();
+        }
     }
 
     function action(type, act) {
