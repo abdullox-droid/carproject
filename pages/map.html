@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="dark" lang="ru">
 <head>
     <meta charset="utf-8"/>
@@ -14,7 +14,6 @@
         ::-webkit-scrollbar { display: none; }
         #map { height: 500px; border-radius: 2rem; }
         .car-card.active { border-color: #c6c6c7; background-color: rgba(255,255,255,0.05); }
-<<<<<<< HEAD
         @keyframes carPulse {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.7); }
             50% { transform: scale(1.15); box-shadow: 0 0 25px 10px rgba(250, 204, 21, 0.35); }
@@ -37,8 +36,6 @@
             height: 26px;
             fill: #0e0e0e;
         }
-=======
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
     </style>
 </head>
 <body class="font-body selection:bg-primary selection:text-on-primary">
@@ -92,7 +89,6 @@
     </div>
 </main>
 
-<<<<<<< HEAD
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     const cars = [
@@ -113,14 +109,6 @@
         { id: 15, name: "Lexus RX 350", price: 3000000, lat: 41.308000, lng: 69.215000, img: "https://images.unsplash.com/photo-1606152424101-ad2f9131952e?auto=format&fit=crop&q=80&w=400" },
         { id: 16, name: "Toyota Camry", price: 500000, lat: 41.322000, lng: 69.272000, img: "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=400" }
     ];
-=======
-<script src="../js/cars-data.js"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-    const cars = CARS_DB.filter(c => c.city === 'Tashkent').map(c => ({
-        id: c.id, name: c.name, price: c.priceHour, lat: c.lat, lng: c.lng, img: c.image
-    }));
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
 
     let userLat = 41.311081;
     let userLng = 69.240562;
@@ -129,7 +117,6 @@
     const map = L.map('map').setView([userLat, userLng], 14);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
 
-<<<<<<< HEAD
     const carSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>`;
 
     const carIcon = L.divIcon({
@@ -137,13 +124,6 @@
         html: `<div class="car-marker">${carSvg}</div>`,
         iconSize: [52, 52],
         iconAnchor: [26, 26]
-=======
-    const carIcon = L.divIcon({
-        className: 'custom-div-icon',
-        html: `<div class="w-10 h-10 bg-primary rounded-full border-4 border-zinc-950 flex items-center justify-center shadow-2xl"><span class="material-symbols-outlined text-black text-sm">directions_car</span></div>`,
-        iconSize: [40, 40],
-        iconAnchor: [20, 20]
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
     });
 
     const userIcon = L.divIcon({
@@ -199,11 +179,7 @@
         list.innerHTML = sortedCars.map(car => `
             <div class="car-card bg-surface-container-low p-6 rounded-3xl border border-white/5 hover:border-primary/30 transition-all group cursor-pointer">
                 <div class="aspect-video rounded-2xl overflow-hidden mb-4">
-<<<<<<< HEAD
                     <img src="${car.img}" class="w-full h-full object-cover group-hover:scale-110 transition-all duration-500"/>
-=======
-                    <img src="${car.img}" class="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" onerror="this.src='https://cdn.pixabay.com/photo/2016/11/22/23/38/black-1851122_1280.jpg'"/>
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
                 </div>
                 <div class="flex justify-between items-start mb-4">
                     <div>
@@ -222,11 +198,7 @@
         // Add markers
         sortedCars.forEach(car => {
             L.marker([car.lat, car.lng], { icon: carIcon }).addTo(map)
-<<<<<<< HEAD
              .bindPopup(`<div class="text-black p-2 font-bold">${car.name}<br>${car.price} UZS/час</div>`);
-=======
-             .bindPopup(`<div class="text-black p-2 font-bold">${car.name}<br>${car.price.toLocaleString()} UZS/час</div>`);
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
         });
     }
 

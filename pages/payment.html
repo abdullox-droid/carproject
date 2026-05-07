@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="dark" lang="ru">
 <head>
     <meta charset="utf-8"/>
@@ -100,42 +100,6 @@
 </div>
 
 <script>
-<<<<<<< HEAD
-=======
-    // Read booking params from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const carName = urlParams.get('car') || 'Porsche Taycan Turbo S';
-    const carPrice = parseInt(urlParams.get('price')) || 4500000;
-    const days = parseInt(urlParams.get('days')) || 2;
-    const baseTotal = carPrice * days;
-    const insurance = 800000;
-    const deposit = 5000000;
-
-    // Update display
-    document.querySelector('[class*="Аренда"]')?.closest('div')?.querySelector('.font-bold')?.remove();
-
-    function updatePaymentDisplay() {
-        const summaryDiv = document.querySelector('.space-y-4');
-        if (summaryDiv) {
-            summaryDiv.innerHTML = `
-                <div class="flex justify-between text-sm">
-                    <span class="text-on-surface-variant">${carName} (${days} ${days === 1 ? 'день' : days < 5 ? 'дня' : 'дней'})</span>
-                    <span class="font-bold">${baseTotal.toLocaleString()} UZS</span>
-                </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-on-surface-variant">Страховка KASKO+</span>
-                    <span class="font-bold">${insurance.toLocaleString()} UZS</span>
-                </div>
-                <div class="pt-4 border-t border-white/5 flex justify-between items-center">
-                    <span class="text-sm font-black uppercase tracking-widest text-primary">Итого к оплате</span>
-                    <span class="text-3xl font-headline font-black">${(baseTotal + insurance).toLocaleString()} UZS</span>
-                </div>
-            `;
-        }
-    }
-    updatePaymentDisplay();
-
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
     function selectPayment(btn) {
         document.querySelectorAll('.payment-card').forEach(c => {
             c.classList.remove('active');
@@ -148,13 +112,7 @@
     }
 
     function pay() {
-<<<<<<< HEAD
         alert('💳 Перенаправление на платежный шлюз...');
-=======
-        const btn = document.querySelector('button[onclick="pay()"]');
-        btn.textContent = '⏳ Обработка...';
-        btn.disabled = true;
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
         setTimeout(() => {
             window.location.href = 'confirmation.html';
         }, 2000);

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="dark" lang="ru">
 <head>
     <meta charset="utf-8"/>
@@ -162,10 +162,7 @@
         <button onclick="showSection('rentals')" id="tab-rentals" class="tab-btn active px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Мои аренды</button>
         <button onclick="showSection('favorites')" id="tab-favorites" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Избранное</button>
         <button onclick="showSection('owned')" id="tab-owned" class="tab-btn hidden px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Мой флот</button>
-<<<<<<< HEAD
         <button onclick="showSection('subscriptions')" id="tab-subscriptions" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Подписки</button>
-=======
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
         <button onclick="showSection('docs')" id="tab-docs" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Документы</button>
     </div>
 
@@ -192,7 +189,6 @@
         </div>
     </div>
 
-<<<<<<< HEAD
     <div id="section-subscriptions" class="section hidden space-y-8">
         <div class="max-w-3xl mx-auto">
             <div class="bg-gradient-to-br from-yellow-500/20 to-amber-900/40 p-12 rounded-[3rem] border border-yellow-500/30 relative overflow-hidden">
@@ -235,8 +231,6 @@
         </div>
     </div>
 
-=======
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
     <div id="section-docs" class="section hidden">
         <div class="bg-surface-container-low p-10 rounded-[2.5rem] border border-white/5 text-center max-w-2xl mx-auto">
             <span class="material-symbols-outlined text-7xl text-primary mb-6">description</span>
@@ -305,7 +299,6 @@
         if (id === 'rentals') loadRentals();
         if (id === 'favorites') loadFavorites();
         if (id === 'owned') loadOwned();
-<<<<<<< HEAD
         if (id === 'subscriptions') checkSubscriptionStatus();
     }
 
@@ -315,8 +308,6 @@
             document.getElementById('buySuperRacerBtn').style.display = 'none';
             document.getElementById('activeSubscriptionMsg').classList.remove('hidden');
         }
-=======
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
     }
 
     function loadRentals() {
@@ -357,11 +348,7 @@
 
     function loadOwned() {
         const list = document.getElementById('ownedList');
-<<<<<<< HEAD
         const owned = JSON.parse(localStorage.getItem('carlink_owned') || []);
-=======
-        const owned = JSON.parse(localStorage.getItem('carlink_owned') || '[]');
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
         list.innerHTML = owned.map(car => `
             <div class="bg-surface-container-low rounded-3xl overflow-hidden border border-white/5">
                 <img src="${car.image}" class="w-full h-48 object-cover"/>

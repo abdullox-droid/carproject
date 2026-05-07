@@ -1,42 +1,22 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="dark" lang="ru">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Детали автомобиля — CarLink</title>
-<<<<<<< HEAD
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" rel="stylesheet"/>
     <script id="tailwind-config">
-=======
-    <meta name="description" content="Подробная информация, фото и бронирование автомобиля на CarLink.">
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <script>
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-<<<<<<< HEAD
                     "colors": {
                         "primary": "#c6c6c7",
                         "surface-dim": "#0e0e0e",
                         "surface-container-low": "#131313",
                     },
-=======
-                    colors: {
-                        "primary": "#c6c6c7", "primary-fixed": "#e2e2e2", "primary-dim": "#b8b9b9",
-                        "on-primary": "#3f4041", "on-surface": "#e7e5e4", "on-surface-variant": "#acabaa",
-                        "surface": "#0e0e0e", "surface-container": "#191a1a", "surface-container-low": "#131313",
-                        "surface-container-high": "#1f2020", "surface-container-highest": "#252626",
-                        "surface-container-lowest": "#000000", "surface-variant": "#252626",
-                        "background": "#0e0e0e", "outline": "#767575", "outline-variant": "#484848",
-                    },
-                    fontFamily: { "headline": ["Manrope"], "body": ["Inter"] },
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
                 },
             },
         }
@@ -47,18 +27,10 @@
         ::-webkit-scrollbar { display: none; }
         .calendar-day.busy { color: #ec7c8a; text-decoration: line-through; cursor: not-allowed; opacity: 0.5; }
         .calendar-day.selected { background-color: #c6c6c7; color: #000; font-weight: 800; border-radius: 0.5rem; }
-<<<<<<< HEAD
-=======
-        .gallery-thumb { opacity: 0.5; transition: opacity 0.3s; cursor: pointer; border: 2px solid transparent; }
-        .gallery-thumb.active, .gallery-thumb:hover { opacity: 1; border-color: #c6c6c7; }
-        .mobile-menu { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
-        .mobile-menu.open { transform: translateX(0); }
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
     </style>
 </head>
 <body class="font-body selection:bg-primary selection:text-on-primary">
 
-<<<<<<< HEAD
 <nav class="fixed top-0 w-full z-50 dark:bg-zinc-950/70 backdrop-blur-xl border-b border-white/5">
     <div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
         <a href="../index.html" class="text-2xl font-black tracking-tighter dark:text-zinc-100 font-headline">CarLink</a>
@@ -93,92 +65,20 @@
                 <div class="bg-surface-container-low p-8 rounded-3xl border border-primary/30">
                     <p class="text-[10px] font-black uppercase tracking-widest text-primary mb-2">Залог (Deposit)</p>
                     <p class="text-xl font-headline font-black">5,000,000 UZS</p>
-=======
-<nav class="fixed top-0 w-full z-50 bg-zinc-950/70 backdrop-blur-xl border-b border-white/5">
-    <div class="flex justify-between items-center px-6 md:px-8 py-4 max-w-screen-2xl mx-auto">
-        <a href="../index.html" class="text-2xl font-black tracking-tighter text-zinc-100 font-headline">CarLink</a>
-        <div class="hidden md:flex items-center gap-6">
-            <a href="catalog.html" class="font-headline text-xs font-black uppercase tracking-widest text-on-surface-variant hover:text-white transition-colors">Каталог</a>
-            <a href="home.html" class="font-headline text-xs font-black uppercase tracking-widest text-on-surface-variant hover:text-white transition-colors">Главная</a>
-        </div>
-        <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl hover:bg-white/5">
-            <span class="material-symbols-outlined text-zinc-300">menu</span>
-        </button>
-    </div>
-</nav>
-
-<!-- Mobile Menu -->
-<div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] bg-zinc-950/98 backdrop-blur-xl flex flex-col items-center justify-center gap-8">
-    <button onclick="toggleMobileMenu()" class="absolute top-5 right-6 p-2">
-        <span class="material-symbols-outlined text-zinc-300 text-3xl">close</span>
-    </button>
-    <a href="catalog.html" class="text-2xl font-headline font-bold text-zinc-300">Каталог</a>
-    <a href="home.html" class="text-2xl font-headline font-bold text-zinc-300">Главная</a>
-    <a href="../login.html" class="text-2xl font-headline font-bold text-zinc-300">Вход</a>
-    <a href="profile.html" class="text-2xl font-headline font-bold text-zinc-300">Профиль</a>
-</div>
-
-<main class="pt-24 pb-32 px-4 md:px-8 max-w-screen-2xl mx-auto">
-    <!-- Step 3: Car Card -->
-    <div id="step-3" class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-        <div class="lg:col-span-8">
-            <!-- Main Image -->
-            <div class="rounded-2xl md:rounded-[3rem] overflow-hidden mb-4 h-[300px] md:h-[500px] lg:h-[600px] relative shadow-2xl border border-white/5">
-                <img id="mainImage" src="" class="w-full h-full object-cover" onerror="this.src='https://cdn.pixabay.com/photo/2016/11/22/23/38/black-1851122_1280.jpg'"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 md:p-12">
-                    <div>
-                        <span id="carType" class="text-xs uppercase tracking-widest text-primary font-bold mb-2 block"></span>
-                        <h1 id="carTitle" class="text-3xl md:text-5xl lg:text-6xl font-headline font-black tracking-tighter"></h1>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Gallery Thumbnails -->
-            <div id="galleryThumbs" class="flex gap-3 mb-10 overflow-x-auto pb-2"></div>
-
-            <!-- Specs -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
-                <div class="bg-surface-container-low p-6 md:p-8 rounded-2xl md:rounded-3xl border border-white/5">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Мощность</p>
-                    <p id="carHP" class="text-lg md:text-xl font-headline font-black"></p>
-                </div>
-                <div class="bg-surface-container-low p-6 md:p-8 rounded-2xl md:rounded-3xl border border-white/5">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Год</p>
-                    <p id="carYear" class="text-lg md:text-xl font-headline font-black"></p>
-                </div>
-                <div class="bg-surface-container-low p-6 md:p-8 rounded-2xl md:rounded-3xl border border-white/5">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Рейтинг</p>
-                    <div class="flex items-center gap-2">
-                        <span id="carRating" class="text-lg md:text-xl font-headline font-black"></span>
-                        <span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1">star</span>
-                    </div>
-                </div>
-                <div class="bg-surface-container-low p-6 md:p-8 rounded-2xl md:rounded-3xl border border-primary/30">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-primary mb-2">Залог</p>
-                    <p id="carDeposit" class="text-lg md:text-xl font-headline font-black"></p>
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
                     <p class="text-[9px] text-on-surface-variant font-bold uppercase mt-1">Возвращается сразу</p>
                 </div>
             </div>
 
-<<<<<<< HEAD
             <!-- Owner Info Section -->
             <div class="bg-surface-container-low p-10 rounded-[2.5rem] border border-white/5 mb-12 flex flex-col md:flex-row items-center gap-10">
                 <div class="relative shrink-0">
                     <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200" class="w-32 h-32 rounded-3xl object-cover border-4 border-primary/20 shadow-2xl"/>
-=======
-            <!-- Owner Info -->
-            <div class="bg-surface-container-low p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] border border-white/5 mb-12 flex flex-col md:flex-row items-center gap-8 md:gap-10">
-                <div class="relative shrink-0">
-                    <div class="w-24 h-24 md:w-32 md:h-32 rounded-2xl md:rounded-3xl bg-surface-container-highest border-4 border-primary/20 flex items-center justify-center text-4xl md:text-5xl font-headline font-black text-primary" id="ownerAvatar">Д</div>
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
                     <div class="absolute -bottom-2 -right-2 bg-primary text-black rounded-lg p-1.5 border-4 border-surface-container-low">
                         <span class="material-symbols-outlined text-sm font-black">verified</span>
                     </div>
                 </div>
                 <div class="flex-1 text-center md:text-left">
                     <div class="flex flex-wrap items-center gap-4 mb-2 justify-center md:justify-start">
-<<<<<<< HEAD
                         <h3 class="text-2xl font-headline font-black">Джамшид К.</h3>
                         <span class="bg-primary/10 text-primary px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">Топ-хост</span>
                     </div>
@@ -200,32 +100,10 @@
             <div class="prose prose-invert max-w-none">
                 <h3 class="text-2xl font-headline font-black mb-4">Опыт вождения</h3>
                 <p class="text-on-surface-variant text-lg leading-relaxed">Идеальное состояние, полная зарядка перед подачей. Спортивная подвеска и премиальная акустика Burmester.</p>
-=======
-                        <h3 id="ownerName" class="text-xl md:text-2xl font-headline font-black"></h3>
-                        <span class="bg-primary/10 text-primary px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">Топ-хост</span>
-                    </div>
-                    <div class="flex flex-wrap gap-4 justify-center md:justify-start mt-4">
-                        <div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl">
-                            <span class="material-symbols-outlined text-sm text-yellow-500">star</span>
-                            <span id="ownerRating" class="text-xs font-black"></span>
-                        </div>
-                        <div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl">
-                            <span class="material-symbols-outlined text-sm text-primary">schedule</span>
-                            <span id="ownerResponse" class="text-xs font-black"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="prose prose-invert max-w-none">
-                <h3 class="text-2xl font-headline font-black mb-4">Описание</h3>
-                <p id="carDescription" class="text-on-surface-variant text-lg leading-relaxed"></p>
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
             </div>
         </div>
 
         <div class="lg:col-span-4">
-<<<<<<< HEAD
             <div class="bg-surface-container-highest p-10 rounded-[3rem] border border-white/10 sticky top-24 shadow-2xl">
                 <div class="mb-10">
                     <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Цена аренды</p>
@@ -336,45 +214,10 @@
             <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Общая сумма с опциями</p>
             <p id="totalPrice" class="text-5xl font-headline font-black text-on-surface mb-10">9,800,000 UZS</p>
             <button onclick="goToStep(6)" class="w-full bg-primary text-black py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:shadow-[0_0_50px_rgba(198,198,199,0.3)] transition-all">Перейти к оплате</button>
-=======
-            <div class="bg-surface-container-highest p-8 md:p-10 rounded-2xl md:rounded-[3rem] border border-white/10 sticky top-24 shadow-2xl">
-                <div class="mb-8 md:mb-10">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-2">Цена аренды</p>
-                    <div class="flex items-baseline gap-2">
-                        <span id="carPrice" class="text-4xl md:text-5xl font-headline font-black text-on-surface"></span>
-                        <span class="text-xs font-bold uppercase text-on-surface-variant">UZS / ДЕНЬ</span>
-                    </div>
-                </div>
-
-                <!-- Booking dates -->
-                <div class="space-y-4 mb-8">
-                    <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant block mb-2">Дата начала</label>
-                        <input type="date" id="bookStartDate" class="w-full bg-surface-container-low border border-white/10 rounded-xl p-4 text-sm focus:ring-primary"/>
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant block mb-2">Дата конца</label>
-                        <input type="date" id="bookEndDate" class="w-full bg-surface-container-low border border-white/10 rounded-xl p-4 text-sm focus:ring-primary"/>
-                    </div>
-                </div>
-
-                <div id="totalSection" class="hidden bg-primary/5 p-6 rounded-2xl border border-primary/20 mb-8">
-                    <div class="flex justify-between items-baseline">
-                        <span class="text-xs font-bold text-on-surface-variant uppercase" id="daysLabel">Итого (0 дней)</span>
-                        <span id="totalCalc" class="text-2xl font-headline font-black text-primary">0 UZS</span>
-                    </div>
-                </div>
-
-                <button onclick="bookCar()" class="w-full bg-primary text-black py-5 md:py-6 rounded-2xl font-black uppercase tracking-[0.15em] md:tracking-[0.2em] text-xs hover:shadow-[0_0_40px_rgba(198,198,199,0.3)] transition-all active:scale-[0.98]">Забронировать</button>
-
-                <a href="catalog.html" class="block text-center mt-6 text-[10px] font-black uppercase tracking-widest text-on-surface-variant hover:text-white transition-colors">← Вернуться в каталог</a>
-            </div>
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
         </div>
     </div>
 </main>
 
-<<<<<<< HEAD
 <script>
     function goToStep(step) {
         document.querySelectorAll('#step-3, #step-4, #step-5').forEach(s => s.classList.add('hidden'));
@@ -398,100 +241,6 @@
             extra += parseInt(priceText.replace(/\D/g, ''));
         });
         document.getElementById('totalPrice').textContent = (base + extra).toLocaleString() + ' UZS';
-=======
-<script src="../js/cars-data.js"></script>
-<script src="../js/config.js"></script>
-<script>
-    function toggleMobileMenu() {
-        const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('open');
-        document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-    }
-
-    // Get car ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const carId = urlParams.get('id') || 5; // Default to Porsche Taycan
-    const car = getCarById(carId);
-
-    if (!car) {
-        window.location.href = 'catalog.html';
-    } else {
-        // Populate page
-        document.title = `${car.name} — CarLink`;
-        document.getElementById('mainImage').src = car.image;
-        document.getElementById('carTitle').textContent = car.name;
-        document.getElementById('carType').textContent = car.typeRu + ' • ' + car.fuel;
-        document.getElementById('carHP').textContent = car.hp;
-        document.getElementById('carYear').textContent = car.year;
-        document.getElementById('carRating').textContent = car.rating;
-        document.getElementById('carDeposit').textContent = car.deposit.toLocaleString() + ' UZS';
-        document.getElementById('carPrice').textContent = car.price.toLocaleString();
-        document.getElementById('carDescription').textContent = car.description;
-
-        // Owner
-        document.getElementById('ownerName').textContent = car.owner.name;
-        document.getElementById('ownerAvatar').textContent = car.owner.name.charAt(0);
-        document.getElementById('ownerRating').textContent = `${car.owner.rating} (${car.owner.reviews} отзывов)`;
-        document.getElementById('ownerResponse').textContent = `Ответ за ${car.owner.responseTime}`;
-
-        // Gallery
-        const thumbsContainer = document.getElementById('galleryThumbs');
-        car.gallery.forEach((img, i) => {
-            thumbsContainer.innerHTML += `
-                <img src="${img}" class="gallery-thumb w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover ${i === 0 ? 'active' : ''}"
-                     onclick="changeMainImage('${img}', this)"
-                     onerror="this.style.display='none'" />
-            `;
-        });
-
-        // Set today as minimum date
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('bookStartDate').min = today;
-        document.getElementById('bookEndDate').min = today;
-    }
-
-    function changeMainImage(src, thumb) {
-        document.getElementById('mainImage').src = src;
-        document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
-        thumb.classList.add('active');
-    }
-
-    // Calculate total on date change
-    function calcTotal() {
-        const start = document.getElementById('bookStartDate').value;
-        const end = document.getElementById('bookEndDate').value;
-        const section = document.getElementById('totalSection');
-
-        if (start && end) {
-            const days = Math.max(1, Math.ceil((new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24)));
-            const total = days * car.price;
-            document.getElementById('daysLabel').textContent = `Итого (${days} ${days === 1 ? 'день' : days < 5 ? 'дня' : 'дней'})`;
-            document.getElementById('totalCalc').textContent = total.toLocaleString() + ' UZS';
-            section.classList.remove('hidden');
-        } else {
-            section.classList.add('hidden');
-        }
-    }
-
-    document.getElementById('bookStartDate').addEventListener('change', function() {
-        document.getElementById('bookEndDate').min = this.value;
-        calcTotal();
-    });
-    document.getElementById('bookEndDate').addEventListener('change', calcTotal);
-
-    function bookCar() {
-        const start = document.getElementById('bookStartDate').value;
-        const end = document.getElementById('bookEndDate').value;
-
-        if (!start || !end) {
-            // If no dates, go to payment directly with default 2-day
-            window.location.href = 'payment.html?car=' + encodeURIComponent(car.name) + '&price=' + car.price + '&days=2';
-            return;
-        }
-
-        const days = Math.max(1, Math.ceil((new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24)));
-        window.location.href = 'payment.html?car=' + encodeURIComponent(car.name) + '&price=' + car.price + '&days=' + days;
->>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
     }
 </script>
 </body>
