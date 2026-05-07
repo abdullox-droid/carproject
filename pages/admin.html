@@ -48,9 +48,12 @@
         <button onclick="showSection('finances')" id="nav-finances" class="nav-link flex items-center gap-4 text-sm font-bold text-on-surface-variant hover:text-on-surface p-4 rounded-2xl transition-all">
             <span class="material-symbols-outlined">payments</span> Финансы
         </button>
+<<<<<<< HEAD
         <button onclick="showSection('support')" id="nav-support" class="nav-link flex items-center gap-4 text-sm font-bold text-on-surface-variant hover:text-on-surface p-4 rounded-2xl transition-all">
             <span class="material-symbols-outlined">support_agent</span> Поддержка
         </button>
+=======
+>>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
         <button onclick="showSection('settings')" id="nav-settings" class="nav-link flex items-center gap-4 text-sm font-bold text-on-surface-variant hover:text-on-surface p-4 rounded-2xl transition-all">
             <span class="material-symbols-outlined">settings</span> Настройки
         </button>
@@ -254,6 +257,7 @@
         </div>
     </div>
 
+<<<<<<< HEAD
     <!-- Section: Support -->
     <div id="support" class="section space-y-8">
         <h3 class="text-2xl font-headline font-black uppercase tracking-widest">Сообщения в поддержку</h3>
@@ -275,6 +279,8 @@
         </div>
     </div>
 
+=======
+>>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
     <!-- Section: Settings -->
     <div id="settings" class="section space-y-12 max-w-2xl">
         <div class="space-y-6">
@@ -308,6 +314,7 @@
             'cars': 'Автопарк и Модерация',
             'users': 'Управление пользователями',
             'finances': 'Финансовый учет',
+<<<<<<< HEAD
             'support': 'Поддержка клиентов',
             'settings': 'Настройки системы'
         };
@@ -357,6 +364,11 @@
             localStorage.setItem('carlink_support_messages', JSON.stringify(messages));
             loadSupportMessages();
         }
+=======
+            'settings': 'Настройки системы'
+        };
+        document.getElementById('sectionTitle').textContent = titles[id];
+>>>>>>> b616dc99cdd1c577dae98a890f96b9d3e4d333c0
     }
 
     function action(type, act) {
