@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="dark" lang="ru">
 <head>
     <meta charset="utf-8"/>
@@ -95,7 +95,8 @@
     <div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
         <a href="../index.html" class="text-2xl font-black tracking-tighter dark:text-zinc-100 font-headline">CarLink</a>
         <div class="hidden md:flex items-center gap-10">
-            <a class="font-manrope tracking-tight text-sm uppercase dark:text-zinc-500 hover:dark:text-zinc-100 transition-all duration-300" href="catalog.html">Каталог</a>
+            <a class="font-manrope tracking-tight text-sm uppercase dark:text-zinc-500 hover:dark:text-zinc-100 transition-all duration-300" href="catalog.html">Аренда</a>
+            <a class="font-manrope tracking-tight text-sm uppercase dark:text-zinc-500 hover:dark:text-zinc-100 transition-all duration-300" href="showroom.html">Автосалон</a>
             <a class="font-manrope tracking-tight text-sm uppercase dark:text-red-400 hover:dark:text-red-300 transition-all duration-300 cursor-pointer" onclick="logout()">Выйти</a>
         </div>
     </div>
@@ -159,11 +160,12 @@
 
     <!-- Tabs Navigation -->
     <div class="flex gap-4 mb-8 border-b border-white/5 pb-6 overflow-x-auto">
-        <button onclick="showSection('rentals')" id="tab-rentals" class="tab-btn active px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Мои аренды</button>
-        <button onclick="showSection('favorites')" id="tab-favorites" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Избранное</button>
-        <button onclick="showSection('owned')" id="tab-owned" class="tab-btn hidden px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Мой флот</button>
-        <button onclick="showSection('subscriptions')" id="tab-subscriptions" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Подписки</button>
-        <button onclick="showSection('docs')" id="tab-docs" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">Документы</button>
+        <button onclick="showSection('rentals')" id="tab-rentals" class="tab-btn active px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap">Мои аренды</button>
+        <button onclick="showSection('favorites')" id="tab-favorites" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap">Избранное</button>
+        <button onclick="showSection('owned')" id="tab-owned" class="tab-btn hidden px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap">Сдать в аренду</button>
+        <button onclick="showSection('sale')" id="tab-sale" class="tab-btn hidden px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap">Продать авто</button>
+        <button onclick="showSection('subscriptions')" id="tab-subscriptions" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap">Подписки</button>
+        <button onclick="showSection('docs')" id="tab-docs" class="tab-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap">Документы</button>
     </div>
 
     <!-- Sections Content -->
@@ -190,43 +192,81 @@
     </div>
 
     <div id="section-subscriptions" class="section hidden space-y-8">
-        <div class="max-w-3xl mx-auto">
-            <div class="bg-gradient-to-br from-yellow-500/20 to-amber-900/40 p-12 rounded-[3rem] border border-yellow-500/30 relative overflow-hidden">
-                <div class="absolute -top-24 -right-24 w-64 h-64 bg-yellow-500/20 rounded-full blur-3xl"></div>
-                <div class="relative z-10">
-                    <div class="flex items-center gap-4 mb-6">
-                        <span class="material-symbols-outlined text-4xl text-yellow-500">military_tech</span>
-                        <h2 class="text-4xl font-headline font-black text-white">Super Racer</h2>
-                    </div>
-                    <p class="text-lg text-on-surface-variant mb-10 leading-relaxed">Эксклюзивный статус для истинных ценителей скорости. Получите полный безлимит и уникальные привилегии.</p>
-                    
-                    <ul class="space-y-4 mb-12">
-                        <li class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-yellow-500 text-sm">check_circle</span>
-                            <span class="text-sm font-bold uppercase tracking-wider">2 часа БЕСПЛАТНО каждый день на ЛЮБОМ авто</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-yellow-500 text-sm">check_circle</span>
-                            <span class="text-sm font-bold uppercase tracking-wider">Уникальная золотая тема оформления</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-yellow-500 text-sm">check_circle</span>
-                            <span class="text-sm font-bold uppercase tracking-wider">Приоритетная подача и поддержка 24/7</span>
-                        </li>
-                    </ul>
+        <div class="max-w-3xl mx-auto space-y-6">
 
-                    <div class="flex items-end justify-between gap-8">
-                        <div>
-                            <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1">Стоимость подписки</p>
-                            <p class="text-4xl font-headline font-black text-white">5,000,000 <span class="text-lg text-yellow-500">UZS / мес</span></p>
-                        </div>
-                        <button onclick="buySuperRacer()" id="buySuperRacerBtn" class="bg-yellow-500 text-black px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-yellow-400 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/20">Активировать</button>
+            <!-- Basic subscription -->
+            <div class="bg-surface-container-low border border-white/5 p-8 rounded-[2rem]">
+                <div class="flex items-center justify-between gap-6">
+                    <div>
+                        <h3 class="text-xl font-headline font-black mb-2">Базовая</h3>
+                        <p class="text-on-surface-variant text-sm mb-4">Доступ к каталогу аренды, избранное, история поездок.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-xs text-on-surface-variant"><span class="material-symbols-outlined text-primary text-sm">check_circle</span>Аренда из каталога</li>
+                            <li class="flex items-center gap-2 text-xs text-on-surface-variant"><span class="material-symbols-outlined text-primary text-sm">check_circle</span>Избранное и история</li>
+                        </ul>
+                    </div>
+                    <div class="text-right shrink-0">
+                        <p class="text-2xl font-headline font-black">Бесплатно</p>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-green-400">Активна</span>
                     </div>
                 </div>
             </div>
-            
-            <div id="activeSubscriptionMsg" class="hidden mt-8 p-6 bg-white/5 border border-white/10 rounded-3xl text-center">
-                <p class="text-sm font-bold uppercase tracking-widest text-yellow-500">✨ Подписка Super Racer активна ✨</p>
+
+            <!-- Super Racer -->
+            <div class="bg-gradient-to-br from-yellow-500/20 to-amber-900/40 p-10 rounded-[2rem] border border-yellow-500/30 relative overflow-hidden">
+                <div class="absolute -top-16 -right-16 w-48 h-48 bg-yellow-500/15 rounded-full blur-3xl"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="material-symbols-outlined text-3xl text-yellow-500">military_tech</span>
+                        <h2 class="text-3xl font-headline font-black text-white">Super Racer</h2>
+                    </div>
+                    <p class="text-on-surface-variant mb-8 leading-relaxed">Эксклюзивный статус. Неограниченный доступ и уникальные привилегии.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-yellow-500 text-sm">check_circle</span><span class="text-sm font-bold uppercase tracking-wider">2 часа БЕСПЛАТНО каждый день на ЛЮБОМ авто</span></li>
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-yellow-500 text-sm">check_circle</span><span class="text-sm font-bold uppercase tracking-wider">Золотая тема оформления</span></li>
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-yellow-500 text-sm">check_circle</span><span class="text-sm font-bold uppercase tracking-wider">Приоритетная подача и поддержка 24/7</span></li>
+                    </ul>
+                    <div class="flex items-end justify-between gap-6">
+                        <div>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1">Стоимость</p>
+                            <p class="text-3xl font-headline font-black text-white">1,500,000 <span class="text-base text-yellow-500">UZS / мес</span></p>
+                        </div>
+                        <button onclick="buySubscription('super_racer')" id="buySuperRacerBtn" class="bg-yellow-500 text-black px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-yellow-400 hover:scale-105 active:scale-95 transition-all">Активировать</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIP Business Driver -->
+            <div class="bg-gradient-to-br from-zinc-800 to-zinc-950 p-10 rounded-[2rem] border border-white/20 relative overflow-hidden">
+                <div class="absolute -top-16 -left-16 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
+                <div class="absolute top-4 right-4">
+                    <span class="px-3 py-1 bg-white text-black rounded-lg text-[10px] font-black uppercase tracking-widest">VIP</span>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="material-symbols-outlined text-3xl text-white">supervisor_account</span>
+                        <h2 class="text-3xl font-headline font-black text-white">Business Driver</h2>
+                    </div>
+                    <p class="text-on-surface-variant mb-8 leading-relaxed">Персональный бизнес-водитель приезжает к вам. Никаких машин — только комфорт и свобода.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-white text-sm">check_circle</span><span class="text-sm font-bold uppercase tracking-wider">Личный водитель 24/7 — в любую точку</span></li>
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-white text-sm">check_circle</span><span class="text-sm font-bold uppercase tracking-wider">Премиальный автомобиль с водителем</span></li>
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-white text-sm">check_circle</span><span class="text-sm font-bold uppercase tracking-wider">Встреча из аэропорта, отель, бизнес-встречи</span></li>
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-white text-sm">check_circle</span><span class="text-sm font-bold uppercase tracking-wider">VIP-приоритет и персональный менеджер</span></li>
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-white text-sm">check_circle</span><span class="text-sm font-bold uppercase tracking-wider">Вода, Wi-Fi и пресса в салоне</span></li>
+                    </ul>
+                    <div class="flex items-end justify-between gap-6">
+                        <div>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1">Стоимость</p>
+                            <p class="text-3xl font-headline font-black text-white">5,000,000 <span class="text-base text-on-surface-variant">UZS / мес</span></p>
+                        </div>
+                        <button onclick="buySubscription('business_driver')" id="buyDriverBtn" class="bg-white text-black px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-gray-100 hover:scale-105 active:scale-95 transition-all">Подключить</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="activeSubscriptionMsg" class="hidden mt-4 p-6 bg-white/5 border border-white/10 rounded-3xl text-center">
+                <p class="text-sm font-bold uppercase tracking-widest text-yellow-500" id="activeSubText">✨ Подписка активна ✨</p>
             </div>
         </div>
     </div>
@@ -246,6 +286,17 @@
                     <p class="text-[10px] font-black uppercase tracking-widest">Права (Требуется обновление)</p>
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- Section: Sell car -->
+    <div id="section-sale" class="section hidden space-y-8">
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-headline font-black">Продать свой автомобиль</h2>
+            <button onclick="openSaleModal()" class="bg-primary text-black px-6 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] active:scale-95 transition-all">+ Выставить на продажу</button>
+        </div>
+        <div id="saleList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Rendered by JS -->
         </div>
     </div>
 
@@ -282,13 +333,15 @@
     const user = JSON.parse(localStorage.getItem('carlink_user'));
     if (!user) window.location.href = '../login.html';
 
+    const roleLabels = { owner: 'Владелец', renter: 'Арендатор', both: 'Владелец & Арендатор' };
     document.getElementById('profileName').textContent = '@' + user.username;
     document.getElementById('avatarLetter').textContent = user.username.charAt(0).toUpperCase();
-    document.getElementById('profileRole').textContent = user.role === 'owner' ? 'Владелец' : 'Арендатор';
+    document.getElementById('profileRole').textContent = roleLabels[user.role] || 'Арендатор';
 
-    if (user.role === 'owner') {
+    if (user.role === 'owner' || user.role === 'both') {
         document.getElementById('ownerStats').classList.remove('hidden');
         document.getElementById('tab-owned').classList.remove('hidden');
+        document.getElementById('tab-sale').classList.remove('hidden');
     }
 
     function showSection(id) {
@@ -299,15 +352,37 @@
         if (id === 'rentals') loadRentals();
         if (id === 'favorites') loadFavorites();
         if (id === 'owned') loadOwned();
+        if (id === 'sale') loadSale();
         if (id === 'subscriptions') checkSubscriptionStatus();
     }
 
     function checkSubscriptionStatus() {
-        const user = JSON.parse(localStorage.getItem('carlink_user'));
-        if (user && user.is_super_racer) {
-            document.getElementById('buySuperRacerBtn').style.display = 'none';
+        const u = JSON.parse(localStorage.getItem('carlink_user'));
+        if (!u) return;
+        if (u.subscription === 'super_racer') {
+            document.getElementById('buySuperRacerBtn').textContent = 'Активна ✓';
+            document.getElementById('buySuperRacerBtn').disabled = true;
+        }
+        if (u.subscription === 'business_driver') {
+            document.getElementById('buyDriverBtn').textContent = 'Активна ✓';
+            document.getElementById('buyDriverBtn').disabled = true;
+            document.getElementById('activeSubscriptionMsg').classList.remove('hidden');
+            document.getElementById('activeSubText').textContent = '🚘 Business Driver активна — водитель едет к вам';
+        }
+        if (u.subscription) {
             document.getElementById('activeSubscriptionMsg').classList.remove('hidden');
         }
+    }
+
+    function buySubscription(type) {
+        const u = JSON.parse(localStorage.getItem('carlink_user'));
+        u.subscription = type;
+        if (type === 'super_racer') u.is_super_racer = true;
+        localStorage.setItem('carlink_user', JSON.stringify(u));
+        checkSubscriptionStatus();
+        alert(type === 'business_driver'
+            ? '🚘 Business Driver активирован! Ваш личный водитель уже назначен. Ожидайте звонка менеджера.'
+            : '⭐ Super Racer активирован! Наслаждайтесь привилегиями.');
     }
 
     function loadRentals() {
@@ -369,27 +444,111 @@
 
     function openRentOutModal() { document.getElementById('rentOutModal').classList.remove('hidden'); }
     function closeRentOutModal() { document.getElementById('rentOutModal').classList.add('hidden'); }
+    function openSaleModal() { document.getElementById('saleModal').classList.remove('hidden'); }
+    function closeSaleModal() { document.getElementById('saleModal').classList.add('hidden'); }
+
+    function loadSale() {
+        const list = document.getElementById('saleList');
+        const items = JSON.parse(localStorage.getItem('carlink_forsale') || '[]');
+        if (!items.length) {
+            list.innerHTML = '<p class="col-span-full text-center py-20 text-xs font-black uppercase tracking-widest text-on-surface-variant">Нет объявлений. Выставьте авто на продажу.</p>';
+            return;
+        }
+        list.innerHTML = items.map((c, i) => `
+            <div class="bg-surface-container-low border border-white/5 rounded-3xl overflow-hidden">
+                <div class="h-40 bg-surface-variant flex items-center justify-center">
+                    <span class="material-symbols-outlined text-5xl text-on-surface-variant">directions_car</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-3">
+                        <h4 class="text-lg font-black">${c.model}</h4>
+                        <span class="px-2 py-1 bg-green-500/15 text-green-400 rounded-lg text-[9px] font-black uppercase tracking-wider">${c.payType}</span>
+                    </div>
+                    <p class="text-xs text-on-surface-variant mb-1">${c.year} год • ${c.mileage} км</p>
+                    <p class="text-xl font-headline font-black mt-3">${parseInt(c.price).toLocaleString()} UZS</p>
+                    ${c.installment ? '<p class="text-xs text-on-surface-variant mt-1">Доступна рассрочка</p>' : ''}
+                    <button onclick="removeSaleListing(${i})" class="w-full mt-4 py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-red-400 hover:text-red-400 transition-all">Снять объявление</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function removeSaleListing(idx) {
+        const items = JSON.parse(localStorage.getItem('carlink_forsale') || '[]');
+        items.splice(idx, 1);
+        localStorage.setItem('carlink_forsale', JSON.stringify(items));
+        loadSale();
+    }
 
     document.getElementById('rentOutForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const newCar = {
-            model: formData.get('carModel'),
-            year: formData.get('carYear'),
-            price: parseInt(formData.get('carPrice')),
-            image: formData.get('carImage')
-        };
+        const fd = new FormData(e.target);
         const owned = JSON.parse(localStorage.getItem('carlink_owned') || '[]');
-        owned.push(newCar);
+        owned.push({ model: fd.get('carModel'), year: fd.get('carYear'), price: parseInt(fd.get('carPrice')), image: fd.get('carImage') });
         localStorage.setItem('carlink_owned', JSON.stringify(owned));
         closeRentOutModal();
+        e.target.reset();
         showSection('owned');
     });
 
-    function logout() { localStorage.removeItem('carlink_user'); window.location.href = '../login.html'; }
+    document.getElementById('saleForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const items = JSON.parse(localStorage.getItem('carlink_forsale') || '[]');
+        items.push({
+            model: fd.get('saleModel'), year: fd.get('saleYear'),
+            price: fd.get('salePrice'), mileage: fd.get('saleMileage'),
+            payType: fd.get('salePayType'), installment: fd.get('saleInstallment') === 'on'
+        });
+        localStorage.setItem('carlink_forsale', JSON.stringify(items));
+        closeSaleModal();
+        e.target.reset();
+        showSection('sale');
+    });
 
+    function logout() { localStorage.removeItem('carlink_user'); window.location.href = '../login.html'; }
     loadRentals();
 </script>
+
+<!-- Modal: Sell car -->
+<div id="saleModal" class="fixed inset-0 z-[100] hidden flex flex-col items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeSaleModal()"></div>
+    <div class="relative bg-surface-container-low border border-white/10 rounded-[3rem] p-12 max-w-2xl w-full shadow-2xl">
+        <h3 class="text-3xl font-headline font-black mb-2">Выставить авто на продажу</h3>
+        <p class="text-on-surface-variant text-sm mb-8">Объявление появится в AutoSalon CarLink</p>
+        <form id="saleForm" class="grid grid-cols-2 gap-6">
+            <div class="col-span-2">
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant block mb-2">Марка и модель</label>
+                <input type="text" name="saleModel" required placeholder="Напр: BMW X5 xDrive" class="w-full bg-surface-variant border-none rounded-2xl p-4 text-sm">
+            </div>
+            <div>
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant block mb-2">Год выпуска</label>
+                <input type="number" name="saleYear" required placeholder="2022" min="2000" max="2025" class="w-full bg-surface-variant border-none rounded-2xl p-4 text-sm">
+            </div>
+            <div>
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant block mb-2">Пробег (км)</label>
+                <input type="number" name="saleMileage" required placeholder="45000" class="w-full bg-surface-variant border-none rounded-2xl p-4 text-sm">
+            </div>
+            <div>
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant block mb-2">Цена (UZS)</label>
+                <input type="number" name="salePrice" required placeholder="350000000" class="w-full bg-surface-variant border-none rounded-2xl p-4 text-sm">
+            </div>
+            <div>
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant block mb-2">Тип оплаты</label>
+                <select name="salePayType" class="w-full bg-surface-variant border-none rounded-2xl p-4 text-sm text-on-surface">
+                    <option value="Наличные">Наличные</option>
+                    <option value="Наличные / Рассрочка">Наличные / Рассрочка</option>
+                    <option value="Рассрочка">Только рассрочка</option>
+                </select>
+            </div>
+            <div class="col-span-2 flex items-center gap-3">
+                <input type="checkbox" name="saleInstallment" id="saleInstallmentCheck" class="w-5 h-5 rounded accent-gray-300">
+                <label for="saleInstallmentCheck" class="text-sm font-bold cursor-pointer">Доступна рассрочка от покупателя</label>
+            </div>
+            <button type="submit" class="col-span-2 bg-primary text-black py-5 rounded-[2rem] font-black uppercase tracking-[0.2em] text-xs mt-2 active:scale-95 transition-all">Опубликовать объявление</button>
+        </form>
+    </div>
+</div>
 
 <script src="../js/config.js"></script>
 <script src="../js/animations.js"></script>
